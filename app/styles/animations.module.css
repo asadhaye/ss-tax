@@ -1,0 +1,105 @@
+/* Base Animation Classes */
+.fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+  animation-delay: calc(var(--index, 0) * 0.1s);
+}
+
+.slideIn {
+  opacity: 0;
+  animation: slideIn 0.5s ease-out forwards;
+  animation-delay: calc(var(--index, 0) * 0.1s);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback for no JS or hydration issues */
+@media (prefers-reduced-motion: reduce) {
+  .fadeIn,
+  .slideIn {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Force visible after a delay to prevent stuck state */
+.fadeIn:not(.visible) {
+  animation: forceVisible 1s 1s forwards;
+}
+
+@keyframes forceVisible {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Stagger Effect */
+.stagger {
+  transition-delay: calc(var(--index) * 0.1s);
+}
+
+/* Slide Animations */
+.slideInLeft {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.slideInRight {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.slideInLeft.visible,
+.slideInRight.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale Animations */
+.scaleIn {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scaleIn.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Navigation Stagger Effect */
+.staggerNav > * {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.staggerNav.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.staggerNav.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.staggerNav.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.staggerNav.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.staggerNav.visible > *:nth-child(4) { transition-delay: 0.4s; }
+.staggerNav.visible > *:nth-child(5) { transition-delay: 0.5s; }
+.staggerNav.visible > *:nth-child(6) { transition-delay: 0.6s; }
