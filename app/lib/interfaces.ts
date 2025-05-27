@@ -28,14 +28,23 @@ export interface AuthError extends Error {
 }
 
 export type AuthErrorCode = 
-  | 'email-already-in-use'
-  | 'invalid-email'
-  | 'invalid-credential'
+  | 'auth/email-already-in-use'
+  | 'auth/invalid-email'
+  | 'auth/invalid-credential'
+  | 'auth/invalid-params'
   | 'auth/unknown';
 
 export const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
-  'email-already-in-use': 'Email already in use',
-  'invalid-email': 'Invalid email format',
-  'invalid-credential': 'Invalid credentials',
+  'auth/email-already-in-use': 'Email already in use',
+  'auth/invalid-email': 'Invalid email format',
+  'auth/invalid-credential': 'Invalid credentials',
+  'auth/invalid-params': 'Invalid parameters provided',
   'auth/unknown': 'An unknown error occurred'
 };
+
+export interface Calculator {
+  id: string;
+  title: string;
+  description: string;
+  buttonText: string;
+}
