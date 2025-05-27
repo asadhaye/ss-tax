@@ -73,12 +73,13 @@ export const metadata: Metadata = {
     },
   },
   manifest: '/site.webmanifest',
+};
+
+export const viewport = {
   themeColor: '#ffffff',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
