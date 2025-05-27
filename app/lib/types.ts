@@ -16,6 +16,10 @@ export interface User {
     title: string;
     content: string;
     date: string;
+    category: string;
+    image: string;
+    readTime: string;
+    author: string;
   }
 
   export interface Calculator {

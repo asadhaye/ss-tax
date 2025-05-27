@@ -35,26 +35,50 @@ export async function getServices(): Promise<Service[]> {
     {
       id: '1',
       name: 'Company/Firm Registration',
+      description: 'Comprehensive company and firm registration services in Pakistan. We handle SECP registration, business name reservation, documentation preparation, and compliance requirements. Our experts guide you through the entire process, ensuring smooth registration and proper legal structure for your business.',
       img: 'https://taxcalculator.pk/assets/images/services/1.webp',
-      link: '#'
+      link: '#',
+      category: 'business-setup'
     },
     {
       id: '2',
       name: 'Income Tax Return Filing',
+      description: 'Professional income tax return filing services for individuals and businesses. We ensure accurate tax calculations, proper documentation, and timely submission. Our team stays updated with the latest tax laws and regulations to maximize your tax benefits while maintaining full compliance.',
       img: 'https://taxcalculator.pk/assets/images/services/4.webp',
-      link: '#'
+      link: '#',
+      category: 'tax-compliance'
     },
     {
       id: '3',
       name: 'Tax Appeals & Litigation',
+      description: 'Expert representation in tax appeals and litigation matters. We handle complex tax disputes, prepare appeals, represent clients before tax authorities and courts, and develop effective strategies for tax dispute resolution. Our experienced team ensures your rights are protected throughout the process.',
       img: 'https://taxcalculator.pk/assets/images/services/3.webp',
-      link: '#'
+      link: '#',
+      category: 'tax-litigation'
     },
     {
       id: '4',
       name: 'Drafting Legal Agreements & Contracts',
+      description: 'Professional drafting and review of legal agreements and contracts. We ensure your documents are legally sound, comprehensive, and protect your interests. Our services include drafting business contracts, employment agreements, partnership deeds, and other legal documents with proper clauses and safeguards.',
       img: 'https://taxcalculator.pk/assets/images/services/2.webp',
-      link: '#'
+      link: '#',
+      category: 'legal-services'
+    },
+    {
+      id: '5',
+      name: 'Tax Planning & Strategy',
+      description: 'Strategic tax planning services to optimize your tax position. We analyze your financial situation, identify tax-saving opportunities, and develop customized tax strategies. Our proactive approach helps minimize tax liabilities while ensuring compliance with all applicable laws and regulations.',
+      img: 'https://taxcalculator.pk/assets/images/services/5.webp',
+      link: '#',
+      category: 'tax-planning'
+    },
+    {
+      id: '6',
+      name: 'Business Advisory Services',
+      description: 'Comprehensive business advisory services to help your business grow. We provide strategic guidance on business structure, financial planning, risk management, and regulatory compliance. Our experts help you make informed decisions and navigate complex business challenges.',
+      img: 'https://taxcalculator.pk/assets/images/services/6.webp',
+      link: '#',
+      category: 'business-advisory'
     }
   ];
 }

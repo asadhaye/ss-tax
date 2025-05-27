@@ -1,8 +1,10 @@
 export interface Service {
   id: string;
   name: string;
+  description: string;
   img: string;
   link: string;
+  category: string;
 }
 
 export interface UserCredential {

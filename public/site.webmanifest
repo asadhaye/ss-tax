@@ -1,0 +1,21 @@
+{
+  "name": "SS Tax - Professional Tax Consulting Services",
+  "short_name": "SS Tax",
+  "description": "Professional tax consulting services in Pakistan. Expert guidance for businesses and individuals on tax planning, compliance, and business advisory.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+} 

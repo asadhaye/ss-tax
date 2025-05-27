@@ -2,12 +2,12 @@
 
 import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { AuthContext, signUp } from '../lib/AuthProvider';
 import { saveUser } from '../lib/data';
-import { User, UserCredential, SaveUserData, AuthError, AUTH_ERROR_MESSAGES } from '../lib/interfaces';
+import { User, SaveUserData, AuthError, AUTH_ERROR_MESSAGES } from '../lib/interfaces';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
+import Link from 'next/link';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
