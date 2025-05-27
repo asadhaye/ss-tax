@@ -2,9 +2,12 @@
 
 import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { AuthContext, signUp } from '../lib/AuthProvider';
 import { saveUser } from '../lib/data';
 import { User, UserCredential, SaveUserData, AuthError, AUTH_ERROR_MESSAGES } from '../lib/interfaces';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorMessage from '../components/ErrorMessage';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -72,7 +75,7 @@ export default function Signup() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
             disabled={loading}
           />
           <input
@@ -80,21 +83,31 @@ export default function Signup() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
             disabled={loading}
           />
           <button
             onClick={handleSignUp}
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             disabled={loading}
           >
-            {loading ? 'Signing up...' : 'Sign Up'}
+            {loading ? (
+              <>
+                <LoadingSpinner size="small" color="text-white" />
+                <span className="ml-2">Signing up...</span>
+              </>
+            ) : (
+              'Sign Up'
+            )}
           </button>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+          {error && <ErrorMessage message={error} />}
         </div>
-        <p className="mt-4 text-center">
+        <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 hover:underline">
+          <Link 
+            href="/login" 
+            className="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200"
+          >
             Login
           </Link>
         </p>

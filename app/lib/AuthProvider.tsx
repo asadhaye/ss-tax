@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, createContext, useContext, useMemo } from 'react';
 import { User, UserCredential, AuthError } from './interfaces';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 interface AuthContextProps {
   user: User | null;
@@ -18,6 +19,7 @@ export const useAuth = () => {
   return context;
 };
 
+// Client-side authentication functions
 export async function signIn(email: string, password: string): Promise<UserCredential> {
   if (!email || !password) {
     const authError = new Error('Email and password are required') as AuthError;
@@ -26,27 +28,21 @@ export async function signIn(email: string, password: string): Promise<UserCrede
   }
 
   try {
-    // Placeholder: Implement Azure AD B2C or similar authentication
+    // For static export, we'll use a mock implementation
+    // In production, you would integrate with your authentication service
     const mockUser: UserCredential = {
-      userId: 'mock-user-id',
+      userId: `user-${Date.now()}`,
       email: email,
       name: 'Mock User'
     };
+
+    // Store auth state in localStorage for persistence
+    localStorage.setItem('auth_user', JSON.stringify(mockUser));
     return mockUser;
   } catch (error) {
-    // Log the error for debugging (use your preferred logging solution)
     console.error('Authentication error:', error);
-    
-    // Transform unknown errors into typed AuthError
-    if (error instanceof Error) {
-      const authError = error as AuthError;
-      authError.code = 'auth/invalid-credential';
-      throw authError;
-    }
-    
-    // Handle unexpected errors
-    const authError = new Error('Authentication failed') as AuthError;
-    authError.code = 'auth/unknown';
+    const authError = error instanceof Error ? error as AuthError : new Error('Authentication failed') as AuthError;
+    authError.code = 'auth/invalid-credential';
     throw authError;
   }
 }
@@ -59,40 +55,33 @@ export async function signUp(email: string, password: string): Promise<UserCrede
   }
 
   try {
-    // Placeholder: Implement Azure AD B2C or similar registration
+    // For static export, we'll use a mock implementation
     const mockUser: UserCredential = {
-      userId: 'mock-user-id',
+      userId: `user-${Date.now()}`,
       email: email,
       name: 'New User'
     };
+
+    // Store auth state in localStorage for persistence
+    localStorage.setItem('auth_user', JSON.stringify(mockUser));
     return mockUser;
   } catch (error) {
     console.error('Registration error:', error);
-    
-    if (error instanceof Error) {
-      const authError = error as AuthError;
-      authError.code = 'auth/email-already-in-use';
-      throw authError;
-    }
-    
-    const authError = new Error('Registration failed') as AuthError;
-    authError.code = 'auth/unknown';
+    const authError = error instanceof Error ? error as AuthError : new Error('Registration failed') as AuthError;
+    authError.code = 'auth/email-already-in-use';
     throw authError;
   }
 }
 
 export async function signOut(): Promise<void> {
   try {
-    // Placeholder: Implement Azure AD B2C or similar sign-out
-    await Promise.resolve();
+    // Clear auth state from localStorage
+    localStorage.removeItem('auth_user');
   } catch (error) {
     console.error('Sign-out error:', error);
-    
-    if (error instanceof Error) {
-      throw error;
-    }
-    
-    throw new Error('Sign-out failed');
+    const authError = error instanceof Error ? error as AuthError : new Error('Sign-out failed') as AuthError;
+    authError.code = 'auth/unknown';
+    throw authError;
   }
 }
 
@@ -103,19 +92,25 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   useEffect(() => {
     const initAuth = async () => {
       try {
-        // Initialize auth state here
-        setLoading(false);
+        // Check localStorage for existing auth state
+        const storedUser = localStorage.getItem('auth_user');
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser({
+            id: parsedUser.userId,
+            email: parsedUser.email,
+            name: parsedUser.name,
+            createdAt: new Date()
+          });
+        }
       } catch (error) {
         console.error('Auth initialization error:', error);
+      } finally {
         setLoading(false);
       }
     };
 
     initAuth();
-
-    return () => {
-      // Cleanup if needed
-    };
   }, []);
 
   const value = useMemo(() => ({ 
@@ -124,7 +119,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   }), [user]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <LoadingSpinner size="large" />
+      </div>
+    );
   }
 
   return (

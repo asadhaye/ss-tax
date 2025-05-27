@@ -4,30 +4,34 @@ import { useState, useEffect } from 'react';
 import { getServices } from '../lib/data';
 import { Service } from '../lib/interfaces';
 import styles from '../styles/animations.module.css';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorMessage from './ErrorMessage';
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchServices() {
-      try {
-        const data = await getServices();
-        setServices(data);
-        setLoading(false);
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Failed to load services';
-        setError(errorMessage);
-        setLoading(false);
-      }
+  const fetchServices = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getServices();
+      setServices(data);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load services';
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
+  };
 
+  useEffect(() => {
     fetchServices();
   }, []);
 
-  if (loading) return <div>Loading services...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <LoadingSpinner size="large" />;
+  if (error) return <ErrorMessage message={error} onRetry={fetchServices} />;
 
   return (
     <section id="services" className="py-16 bg-gray-100">
@@ -46,6 +50,9 @@ export default function Services() {
                 overflow-hidden 
                 ${styles.fadeIn}
                 animate-in
+                hover:shadow-xl
+                transition-shadow
+                duration-300
               `}
               style={{ '--index': index } as React.CSSProperties}
             >
@@ -57,7 +64,20 @@ export default function Services() {
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{service.name}</h3>
-                <a href={service.link} className="text-blue-600 hover:underline">
+                <a 
+                  href={service.link} 
+                  className="
+                    inline-block
+                    px-4 
+                    py-2 
+                    text-blue-600 
+                    hover:text-blue-800 
+                    hover:bg-blue-50 
+                    rounded-md 
+                    transition-colors 
+                    duration-200
+                  "
+                >
                   View Details
                 </a>
               </div>

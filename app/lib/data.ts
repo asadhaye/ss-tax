@@ -1,16 +1,28 @@
 import { SaveUserData, User, Service } from './interfaces';
 
+// Temporary mock storage for development
+const mockStorage = new Map<string, SaveUserData>();
+
 export async function saveUser(
   userId: string, 
   data: SaveUserData
 ): Promise<void> {
-  // Placeholder: Implement Azure Cosmos DB or similar storage
-  throw new Error('User storage not implemented');
+  // Mock implementation for development
+  mockStorage.set(userId, data);
+  return Promise.resolve();
 }
 
 export async function getUser(userId: string): Promise<User> {
-  // Placeholder: Implement Azure Cosmos DB or similar retrieval
-  throw new Error('User retrieval not implemented');
+  // Mock implementation for development
+  const userData = mockStorage.get(userId);
+  if (!userData) {
+    throw new Error('User not found');
+  }
+  return {
+    id: userId,
+    email: userData.email,
+    createdAt: userData.createdAt
+  };
 }
 
 export async function deleteUser(userId: string): Promise<void> {
