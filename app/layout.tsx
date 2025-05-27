@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Providers } from './providers'
+import { Providers } from './providers';
+import ErrorBoundary from './components/ErrorBoundary';
+import AuthProvider from './lib/AuthProvider';
 
 
 export const metadata: Metadata = {
@@ -12,9 +14,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <ErrorBoundary>
+          <AuthProvider>
+            <Providers>
+              {children}
+            </Providers>
+          </AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

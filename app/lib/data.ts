@@ -1,17 +1,14 @@
-import { User, Service } from './interfaces';
+import { SaveUserData, User, Service } from './interfaces';
 
 export async function saveUser(
   userId: string, 
-  data: { 
-    email: string; 
-    createdAt: Date; 
-  }
+  data: SaveUserData
 ): Promise<void> {
   // Placeholder: Implement Azure Cosmos DB or similar storage
   throw new Error('User storage not implemented');
 }
 
-export async function getUsers(): Promise<User[]> {
+export async function getUser(userId: string): Promise<User> {
   // Placeholder: Implement Azure Cosmos DB or similar retrieval
   throw new Error('User retrieval not implemented');
 }
@@ -53,4 +50,28 @@ export async function getServices(): Promise<Service[]> {
 export async function saveCommunitySignup(email: string, timestamp: Date): Promise<void> {
   // Placeholder: Implement Azure Cosmos DB or similar storage
   throw new Error('Community signup storage not implemented');
+}
+
+export async function getUsers(): Promise<User[]> {
+  try {
+    // Placeholder: Implement actual user fetching logic
+    const mockUsers: User[] = [
+      {
+        id: 'user1',
+        email: 'user1@example.com',
+        name: 'User One',
+        createdAt: new Date()
+      },
+      {
+        id: 'user2',
+        email: 'user2@example.com',
+        name: 'User Two',
+        createdAt: new Date()
+      }
+    ];
+    return mockUsers;
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    throw new Error('Failed to fetch users');
+  }
 }

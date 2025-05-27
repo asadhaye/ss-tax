@@ -1,16 +1,15 @@
 'use client';
 
 import React, { useState, useContext } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AuthContext, signUp } from '../lib/AuthProvider';
 import { saveUser } from '../lib/data';
-import { UserCredential } from '../lib/interfaces';
+import { User, UserCredential, SaveUserData, AuthError, AUTH_ERROR_MESSAGES } from '../lib/interfaces';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { setUser } = useContext(AuthContext)!;
   const router = useRouter();
@@ -32,29 +31,29 @@ export default function Signup() {
     setError(null);
     setLoading(true);
     try {
-      const userCredential: UserCredential = await signUp(email, password);
+      const userCredential = await signUp(email, password);
       const createdAt = new Date();
 
-      // First save the user data
-      await saveUser(userCredential.userId, {
+      const userData: SaveUserData = {
         email,
         createdAt,
-      });
+      };
 
-      // Then set the user in context
-      setUser({
+      await saveUser(userCredential.userId, userData);
+
+      const newUser: User = {
         id: userCredential.userId,
         email: userCredential.email ?? undefined,
         name: userCredential.name,
         createdAt,
-      });
+      };
 
+      setUser(newUser);
       router.push('/');
     } catch (err) {
-      const errorMessage = {
-        'email-already-in-use': 'Email already in use',
-        'invalid-email': 'Invalid email format',
-      }[err.code] ?? 'Signup failed';
+      console.error('Signup error:', err);
+      const authError = err as AuthError;
+      const errorMessage = AUTH_ERROR_MESSAGES[authError.code] ?? 'Signup failed';
       setError(errorMessage);
     } finally {
       setLoading(false);

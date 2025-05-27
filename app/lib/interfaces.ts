@@ -5,6 +5,12 @@ export interface Service {
   link: string;
 }
 
+export interface UserCredential {
+  userId: string;
+  email?: string;
+  name?: string;
+}
+
 export interface User {
   id: string;
   email?: string;
@@ -12,15 +18,24 @@ export interface User {
   createdAt: Date;
 }
 
-export interface UserCredential {
-  userId: string;
-  email?: string;
-  name?: string;
+export interface SaveUserData {
+  email: string;
+  createdAt: Date;
 }
 
-export interface Calculator {
-  id: string;
-  title: string;
-  description: string;
-  buttonText: string;
+export interface AuthError extends Error {
+  code: AuthErrorCode;
 }
+
+export type AuthErrorCode = 
+  | 'email-already-in-use'
+  | 'invalid-email'
+  | 'invalid-credential'
+  | 'auth/unknown';
+
+export const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
+  'email-already-in-use': 'Email already in use',
+  'invalid-email': 'Invalid email format',
+  'invalid-credential': 'Invalid credentials',
+  'auth/unknown': 'An unknown error occurred'
+};
