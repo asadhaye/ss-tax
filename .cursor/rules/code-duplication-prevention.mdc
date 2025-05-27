@@ -1,0 +1,61 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Code Duplication Prevention
+
+## Rule: Check Existing Code Before Creating New Files
+
+Before creating new files or components, always check the existing codebase for similar functionality. This helps prevent code duplication and maintains consistency.
+
+### Steps to Follow:
+
+1. **Search Existing Code:**
+   - Use semantic search to find similar functionality
+   - Check both components and utility functions
+   - Look for similar naming patterns
+
+2. **Check These Directories First:**
+   - `app/components/` - For UI components
+   - `app/lib/` - For utility functions and shared logic
+   - `app/api/` - For API routes and handlers
+   - `app/styles/` - For shared styles and themes
+
+3. **Common Patterns to Look For:**
+   - Similar component names
+   - Similar functionality
+   - Shared utilities
+   - Common interfaces or types
+
+4. **When to Create New Files:**
+   - Only after confirming no similar code exists
+   - When functionality is truly unique
+   - When existing code cannot be extended
+
+### Examples of Code to Check:
+
+- Authentication logic in [AuthProvider.tsx](mdc:app/lib/AuthProvider.tsx)
+- Data handling in [data.ts](mdc:app/lib/data.ts)
+- UI components in [components/](mdc:app/components)
+- API routes in [api/](mdc:app/api)
+
+### Best Practices:
+
+1. **Reuse Existing Components:**
+   - Use shared components like [LoadingSpinner.tsx](mdc:app/components/LoadingSpinner.tsx)
+   - Leverage common error handling with [ErrorMessage.tsx](mdc:app/components/ErrorMessage.tsx)
+
+2. **Extend Existing Types:**
+   - Check [interfaces.ts](mdc:app/lib/interfaces.ts) for existing types
+   - Extend existing interfaces when possible
+
+3. **Share Common Logic:**
+   - Use shared utilities in [lib/](mdc:app/lib)
+   - Implement common patterns consistently
+
+4. **Document New Code:**
+   - Add comments explaining why new code was needed
+   - Reference similar existing code if relevant
+
+Remember: It's better to extend existing code than to create new files that duplicate functionality.
