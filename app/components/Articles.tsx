@@ -72,66 +72,87 @@ export default function Articles() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Latest Articles & Blogs
           </h2>
-          <div className="max-w-2xl mx-auto mb-6">
-            <input
-              type="text"
-              placeholder="Search articles..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-              aria-label="Search articles"
-            />
-          </div>
-          <div className="flex flex-wrap justify-center gap-3 mt-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`
-                  px-6 py-2 rounded-md text-sm font-medium border transition-colors duration-200
-                  ${selectedCategory === category
-                    ? 'bg-primary text-text-light border-primary shadow-sm'
-                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400 shadow-sm'
-                  }
-                  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                `}
-                aria-pressed={selectedCategory === category}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          
-          {/* Sort By */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8 text-text-secondary">
-            <span className="font-medium text-text-light">Sort By:</span>
-            <button
-              onClick={() => setSortBy('dateDesc')}
-              className={`
-                text-sm hover:text-primary transition-colors duration-200
-                ${sortBy === 'dateDesc' ? 'font-semibold text-primary' : ''}
-              `}
-            >
-              Newest
-            </button>
-            <button
-              onClick={() => setSortBy('dateAsc')}
-              className={`
-                text-sm hover:text-primary transition-colors duration-200
-                ${sortBy === 'dateAsc' ? 'font-semibold text-primary' : ''}
-              `}
-            >
-              Oldest
-            </button>
-            <button
-              onClick={() => setSortBy('titleAsc')}
-              className={`
-                text-sm hover:text-primary transition-colors duration-200
-                ${sortBy === 'titleAsc' ? 'font-semibold text-primary' : ''}
-              `}
-            >
-              Title (A-Z)
-            </button>
+          {/* Search, Filter, and Sort Controls */}
+          <div className="bg-background p-6 rounded-lg shadow-xl max-w-3xl mx-auto mb-12 border border-background-light text-text-secondary">
+            {/* Search Bar */}
+            <div className="mb-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 text-text-primary"
+                  aria-label="Search articles"
+                />
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            {/* Category Filter */}
+            <div className="mb-6">
+              <label className="block text-left text-text-primary text-sm font-medium mb-2">Filter by Category:</label>
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`
+                      px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                      ${selectedCategory === category
+                        ? 'bg-primary text-text-light border-primary shadow-sm'
+                        : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'
+                      }
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                    `}
+                    aria-pressed={selectedCategory === category}
+                  >
+                    {category === 'all' ? 'All Categories' : category}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Sort By */}
+            <div>
+              <label className="block text-left text-text-primary text-sm font-medium mb-2">Sort By:</label>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setSortBy('dateDesc')}
+                  className={`
+                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                    ${sortBy === 'dateDesc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                  `}
+                >
+                  Newest
+                </button>
+                <button
+                  onClick={() => setSortBy('dateAsc')}
+                  className={`
+                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                    ${sortBy === 'dateAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                  `}
+                >
+                  Oldest
+                </button>
+                <button
+                  onClick={() => setSortBy('titleAsc')}
+                  className={`
+                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                    ${sortBy === 'titleAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                  `}
+                >
+                  Title (A-Z)
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

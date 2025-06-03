@@ -70,39 +70,42 @@ export default function AboutUs() {
               <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
-                  alt="Team Member Name"
+                  alt="Sohail Siraj"
                   width={150}
                   height={150}
                   className="rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Team Member Name</h3>
-                <p className="text-sm">Title/Role</p>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">Sohail Siraj</h3>
+                <p className="text-sm text-text-muted">Founder & Lead Consultant</p>
+                <p className="text-xs text-text-secondary mt-2">{/* Placeholder bio */}</p>
                 {/* Add a short bio or expertise */}
               </div>
 
               <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
-                  alt="Team Member Name"
+                  alt="Team Member 2"
                   width={150}
                   height={150}
                   className="rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Team Member Name</h3>
-                <p className="text-sm">Title/Role</p>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">Team Member 2 Name</h3>
+                <p className="text-sm text-text-muted">Senior Tax Advisor</p>
+                <p className="text-xs text-text-secondary mt-2">{/* Placeholder bio */}</p>
                 {/* Add a short bio or expertise */}
               </div>
 
               <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
-                  alt="Team Member Name"
+                  alt="Team Member 3"
                   width={150}
                   height={150}
                   className="rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="text-xl font-semibold text-text-primary mb-2">Team Member Name</h3>
-                <p className="text-sm">Title/Role</p>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">Team Member 3 Name</h3>
+                <p className="text-sm text-text-muted">Business Advisory Specialist</p>
+                <p className="text-xs text-text-secondary mt-2">{/* Placeholder bio */}</p>
                 {/* Add a short bio or expertise */}
               </div>
 
