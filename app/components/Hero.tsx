@@ -14,8 +14,8 @@ export default function Hero() {
         <a
           href="#contact"
           className={`
-            inline-block bg-background text-primary px-10 py-4 rounded-full font-semibold text-lg shadow-lg
-            hover:bg-gray-100 hover:shadow-xl transition-all duration-300
+            inline-block bg-primary text-text-light px-8 py-3 rounded-md font-semibold text-lg shadow-lg
+            hover:bg-primary-dark hover:shadow-xl transition-all duration-300
             ${styles.fadeIn}
           `}
           style={{ '--index': 2 } as React.CSSProperties}

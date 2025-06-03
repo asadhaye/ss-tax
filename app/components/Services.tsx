@@ -111,10 +111,10 @@ export default function Services() {
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
                 className={`
-                  px-6 py-2 rounded-full text-sm font-medium border transition-colors duration-200
+                  px-6 py-2 rounded-md text-sm font-medium border transition-colors duration-200
                   ${selectedCategory === category.id
-                    ? 'bg-primary text-text-light border-primary shadow-md'
-                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400'
+                    ? 'bg-primary text-text-light border-primary shadow-sm'
+                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400 shadow-sm'
                   }
                   focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                 `}
@@ -136,8 +136,8 @@ export default function Services() {
               <article
                 key={service.id}
                 className={`
-                  bg-background border border-background-light rounded-2xl shadow-xl
-                  hover:shadow-2xl hover:scale-105 transition-all duration-300
+                  bg-background border border-background-light rounded-xl shadow-lg
+                  hover:shadow-xl hover:scale-105 transition-all duration-300
                   overflow-hidden flex flex-col
                   ${styles.fadeIn}
                   animate-in
@@ -160,19 +160,22 @@ export default function Services() {
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-semibold mb-2 text-text-primary">{service.name}</h3>
                   <p className="text-text-secondary mb-4 line-clamp-2 flex-1">{service.description}</p>
-                  <a
-                    href={service.link}
+                  <a 
+                    href={service.link} 
                     className="
                       inline-block
                       mt-auto
-                      px-5
-                      py-2
-                      text-primary
-                      hover:text-primary-dark
-                      hover:bg-blue-50
+                      bg-primary
+                      text-text-light
+                      px-8
+                      py-3
                       rounded-md
-                      transition-colors
-                      duration-200
+                      font-semibold
+                      shadow-lg
+                      hover:bg-primary-dark
+                      hover:shadow-xl
+                      transition-all 
+                      duration-300
                       focus:outline-none
                       focus:ring-2
                       focus:ring-primary

@@ -105,7 +105,7 @@ export default async function ArticleDetail({ params }: ArticleDetailProps) {
           </div>
 
           {/* Article Content */}
-          <div className="prose max-w-none leading-relaxed">
+          <div className="prose max-w-none leading-relaxed mb-8">
             <p>{article.content}</p>
             {/* Add more detailed content here */}
           </div>

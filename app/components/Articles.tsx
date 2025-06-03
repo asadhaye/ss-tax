@@ -88,10 +88,10 @@ export default function Articles() {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`
-                  px-6 py-2 rounded-full text-sm font-medium border transition-colors duration-200
+                  px-6 py-2 rounded-md text-sm font-medium border transition-colors duration-200
                   ${selectedCategory === category
-                    ? 'bg-primary text-text-light border-primary shadow-md'
-                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400'
+                    ? 'bg-primary text-text-light border-primary shadow-sm'
+                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400 shadow-sm'
                   }
                   focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                 `}
@@ -103,8 +103,8 @@ export default function Articles() {
           </div>
           
           {/* Sort By */}
-          <div className="flex justify-center gap-4 mb-8 text-text-secondary">
-            <span className="font-medium">Sort By:</span>
+          <div className="flex flex-wrap justify-center gap-4 mb-8 text-text-secondary">
+            <span className="font-medium text-text-light">Sort By:</span>
             <button
               onClick={() => setSortBy('dateDesc')}
               className={`
@@ -139,7 +139,7 @@ export default function Articles() {
           {paginatedArticles.map(article => (
             <article
               key={article.id}
-              className="bg-background rounded-lg shadow-xl overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col"
+              className="bg-background rounded-xl shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 flex flex-col"
             >
               <div className="relative h-48">
                 <Image
@@ -180,7 +180,7 @@ export default function Articles() {
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded-md bg-background text-text-secondary hover:bg-background-light disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-md bg-background text-text-secondary hover:bg-background-light disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300"
             >
               Previous
             </button>
@@ -188,10 +188,10 @@ export default function Articles() {
               <button
                 key={`page-${pageNum}`}
                 onClick={() => setCurrentPage(pageNum)}
-                className={`px-4 py-2 rounded-md ${
+                className={`px-4 py-2 rounded-md border transition-colors duration-200 ${
                   currentPage === pageNum
-                    ? 'bg-primary text-text-light'
-                    : 'bg-background text-text-secondary hover:bg-background-light'
+                    ? 'bg-primary text-text-light border-primary'
+                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400'
                 }`}
               >
                 {pageNum}
@@ -200,7 +200,7 @@ export default function Articles() {
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-md bg-background text-text-secondary hover:bg-background-light disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-md bg-background text-text-secondary hover:bg-background-light disabled:opacity-50 disabled:cursor-not-allowed border border-gray-300"
             >
               Next
             </button>

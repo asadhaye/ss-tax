@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -51,8 +53,8 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="hero-gradient-bg py-16">
-      <div className="container mx-auto px-4">
+    <div className="hero-gradient-bg py-12 px-4">
+      <div className="container mx-auto">
         <div className="max-w-3xl mx-auto bg-background p-8 rounded-lg shadow-xl">
           <h1 className="text-3xl font-bold text-text-primary mb-8 text-center">Contact Us</h1>
 
@@ -83,7 +85,7 @@ export default function ContactUs() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
                     disabled={status === 'loading'}
                     required
                   />
@@ -96,7 +98,7 @@ export default function ContactUs() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
                     disabled={status === 'loading'}
                     required
                   />
@@ -109,7 +111,7 @@ export default function ContactUs() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
                     disabled={status === 'loading'}
                     required
                   />
@@ -120,7 +122,7 @@ export default function ContactUs() {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary text-text-light py-3 rounded-md font-semibold hover:bg-primary-dark transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-primary text-text-light py-3 rounded-md font-semibold hover:bg-primary-dark transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg"
                   disabled={status === 'loading'}
                 >
                    {status === 'loading' ? (

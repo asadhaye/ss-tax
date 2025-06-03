@@ -29,29 +29,29 @@ export default async function ServiceDetail({ params }: ServiceDetailProps) {
   // Basic layout for the service detail page
   return (
     <div className="hero-gradient-bg py-20">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 text-text-light">
         {/* Breadcrumbs */}
         <nav className="text-sm mb-8" aria-label="Breadcrumb">
-          <ol className="list-none p-0 inline-flex items-center space-x-2 text-text-light">
+          <ol className="list-none p-0 inline-flex items-center space-x-2">
             <li className="flex items-center">
-              <Link href="/" className="text-primary hover:underline">
+              <Link href="/" className="text-text-light hover:underline">
                 Home
               </Link>
-              <svg className="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 79.225c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+              <svg className="fill-current w-3 h-3 mx-2 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 79.225c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
             </li>
             <li className="flex items-center">
-              <Link href="/#services" className="text-primary hover:underline">
+              <Link href="/#services" className="text-text-light hover:underline">
                 Services
               </Link>
-              <svg className="fill-current w-3 h-3 mx-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 79.225c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+              <svg className="fill-current w-3 h-3 mx-2 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 79.225c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
             </li>
             <li>
-              <span className="text-gray-500" aria-current="page">{service.name}</span>
+              <span className="text-gray-300" aria-current="page">{service.name}</span>
             </li>
           </ol>
         </nav>
 
-        <div className="bg-white p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-8">
+        <div className="bg-background p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-8">
 
           {/* Service Image */}
           {service.img && (
@@ -81,7 +81,7 @@ export default async function ServiceDetail({ params }: ServiceDetailProps) {
             <div className="mt-8">
               <a
                 href="#contact"
-                className="inline-block bg-primary text-text-light px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:bg-primary-dark transition-all duration-300"
+                className="inline-block bg-primary text-text-light px-8 py-3 rounded-md font-semibold text-lg shadow-lg hover:bg-primary-dark transition-all duration-300"
               >
                 Inquire About This Service
               </a>
