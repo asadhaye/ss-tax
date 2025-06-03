@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AuthContext, signIn } from '../lib/AuthProvider';
 import { User } from '../lib/interfaces';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ErrorMessage from '../components/ErrorMessage';
 
 // Define error types
 type AuthErrorCode = 'invalid-credential' | 'too-many-requests';
@@ -22,8 +24,10 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const { setUser } = useContext(AuthContext)!;
   const router = useRouter();
+
   const validateForm = () => {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Invalid email format');
@@ -39,54 +43,67 @@ export default function Login() {
   const handleLogin = async () => {
     if (!validateForm()) return;
     setError(null);
+    setLoading(true);
     try {
       const userCredential = await signIn(email, password);
       setUser({
         id: userCredential.userId,
         email: userCredential.email ?? undefined,
         name: userCredential.name,
-        createdAt: new Date() // Add current date as creation time
-      } as User); // Explicitly type as User
+        createdAt: new Date()
+      } as User);
       router.push('/');
     } catch (err) {
+      console.error('Authentication error:', err);
       const authError = err as AuthError;
       const errorMessage = errorMessages[authError.code] ?? 'Login failed';
       setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
-        <div className="space-y-4">
+    <div className="flex justify-center items-center min-h-screen hero-gradient-bg p-4">
+      <div className="bg-background p-8 rounded-lg shadow-xl w-full max-w-sm border border-background-light">
+        <h2 className="text-2xl font-bold mb-6 text-text-primary">Login</h2>
+        <div className="space-y-6">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            disabled={false}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+            disabled={loading}
+            aria-label="Email address"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            disabled={false}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+            disabled={loading}
+            aria-label="Password"
           />
           <button
             onClick={handleLogin}
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
-            disabled={false}
+            className="w-full bg-primary text-text-light py-3 rounded-md font-semibold hover:bg-primary-dark transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            disabled={loading}
           >
-            {'Login'}
+            {loading ? (
+              <>
+                <LoadingSpinner size="small" color="text-text-light" />
+                <span className="ml-2">Logging in...</span>
+              </>
+            ) : (
+              'Login'
+            )}
           </button>
         </div>
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        <p className="mt-4 text-center">
+        {error && <ErrorMessage message={error} />}
+        <p className="mt-4 text-center text-text-secondary">
           Don't have an account?{' '}
-          <Link href="/signup" className="text-blue-600 hover:underline">
+          <Link href="/signup" className="text-primary hover:underline">
             Sign Up
           </Link>
         </p>

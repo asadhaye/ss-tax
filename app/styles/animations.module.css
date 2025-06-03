@@ -103,3 +103,8 @@
 .staggerNav.visible > *:nth-child(4) { transition-delay: 0.4s; }
 .staggerNav.visible > *:nth-child(5) { transition-delay: 0.5s; }
 .staggerNav.visible > *:nth-child(6) { transition-delay: 0.6s; }
+
+/* New custom hero gradient */
+.heroGradient {
+  background: linear-gradient(135deg, #67e8f9, #6366f1 80%);
+}

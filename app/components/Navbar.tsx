@@ -25,30 +25,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-background-dark text-text-light p-4 print:bg-background print:text-text-primary">
+    <nav className="bg-background text-text-secondary py-4 px-6 shadow-md sticky top-0 z-50 print:bg-background print:text-text-primary">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-xl font-bold">Sirajuddin Khalid & Co.</h1>
-        <div className="space-x-4">
+        <h1 className="text-xl font-bold text-text-primary">Sirajuddin Khalid & Co.</h1>
+        <div className="space-x-6 flex items-center">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="hover:text-primary-light transition-colors duration-200"
+              className="hover:text-primary transition-colors duration-200"
             >
               {item.name}
             </Link>
           ))}
           {user ? (
             <>
-              <Link 
-                href="/admin" 
-                className="hover:text-primary-light transition-colors duration-200"
+              <Link
+                href="/admin"
+                className="hover:text-primary transition-colors duration-200"
               >
                 Admin
               </Link>
-              <button 
-                onClick={handleLogout} 
-                className="hover:text-primary-light transition-colors duration-200"
+              <button
+                onClick={handleLogout}
+                className="hover:text-primary transition-colors duration-200"
               >
                 Logout
               </button>

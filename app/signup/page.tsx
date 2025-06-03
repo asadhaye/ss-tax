@@ -64,36 +64,38 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+    <div className="flex items-center justify-center min-h-screen hero-gradient-bg p-4">
+      <div className="bg-background p-8 rounded-lg shadow-xl w-full max-w-sm border border-background-light">
+        <h2 className="text-2xl font-bold mb-6 text-text-primary">
           Sign Up
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-6">
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
             disabled={loading}
+            aria-label="Email address"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-50 disabled:text-gray-500"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
             disabled={loading}
+            aria-label="Password"
           />
           <button
             onClick={handleSignUp}
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            className="w-full bg-primary text-text-light py-3 rounded-md font-semibold hover:bg-primary-dark transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             disabled={loading}
           >
             {loading ? (
               <>
-                <LoadingSpinner size="small" color="text-white" />
+                <LoadingSpinner size="small" color="text-text-light" />
                 <span className="ml-2">Signing up...</span>
               </>
             ) : (
@@ -102,11 +104,11 @@ export default function Signup() {
           </button>
           {error && <ErrorMessage message={error} />}
         </div>
-        <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-text-secondary">
           Already have an account?{' '}
-          <Link 
-            href="/login" 
-            className="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200"
+          <Link
+            href="/login"
+            className="text-primary hover:text-primary-dark hover:underline transition-colors duration-200"
           >
             Login
           </Link>

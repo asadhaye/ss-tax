@@ -4,6 +4,8 @@ import './globals.css';
 import AuthProvider from './lib/AuthProvider';
 import ErrorBoundary from './components/ErrorBoundary';
 import OrganizationJsonLd, { ServiceJsonLd } from './components/JsonLd';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -123,7 +125,11 @@ export default function RootLayout({
           ]}
         />
         <ErrorBoundary>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </AuthProvider>
         </ErrorBoundary>
       </body>
     </html>

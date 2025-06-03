@@ -13,12 +13,19 @@
   
   --color-text-primary: #111827;
   --color-text-secondary: #374151;
+  --color-text-muted: #6B7280;
   
   /* Ensure proper contrast in dark mode */
   @media (prefers-color-scheme: dark) {
     --color-text-primary: #F9FAFB;
     --color-text-secondary: #E5E7EB;
+    --color-text-muted: #9CA3AF;
   }
+}
+
+/* Define hero gradient and a utility class */
+.hero-gradient-bg {
+  background: linear-gradient(135deg, #67e8f9, #6366f1 80%);
 }
 
 /* Print optimization */
@@ -31,6 +38,11 @@
   
   * {
     print-color-adjust: exact;
+  }
+
+  /* Ensure text is readable on white background in print */
+  .print\:bg-background * {
+    color: var(--color-text-primary) !important;
   }
 }
 
