@@ -39,7 +39,9 @@ export default function Articles() {
   const filteredAndSortedArticles = useMemo(() => {
     let filtered = articles.filter(article => {
       const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          article.content.toLowerCase().includes(searchQuery.toLowerCase());
+                          article.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          article.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          article.category.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
@@ -171,9 +173,9 @@ export default function Articles() {
                   className="object-cover"
                   loading="lazy"
                 />
-                 <span className="absolute top-3 left-3 bg-primary text-text-light text-xs px-3 py-1 rounded-full shadow">
-                   {article.category}
-                 </span>
+                <span className="absolute top-3 left-3 bg-primary text-text-light text-xs px-3 py-1 rounded-full shadow">
+                  {article.category}
+                </span>
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <h3 className="text-xl font-semibold text-text-primary mb-2">{article.title}</h3>
