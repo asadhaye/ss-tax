@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { Article } from '../lib/types';
 
@@ -68,9 +68,9 @@ export default function Articles() {
   );
 
   return (
-    <section id="articles" className="py-20 hero-gradient-bg print:bg-background">
+    <section id="articles" className="py-20 bg-gradient-to-br from-orange-400 via-yellow-300 to-pink-500 print:bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 text-text-light">
+        <div className="text-center mb-12 text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Latest Articles & Blogs
           </h2>
@@ -159,42 +159,8 @@ export default function Articles() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedArticles.map(article => (
-            <article
-              key={article.id}
-              className="bg-background rounded-xl shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 flex flex-col"
-            >
-              <div className="relative h-48">
-                <Image
-                  src={article.image}
-                  alt={article.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  loading="lazy"
-                />
-                <span className="absolute top-3 left-3 bg-primary text-text-light text-xs px-3 py-1 rounded-full shadow">
-                  {article.category}
-                </span>
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-semibold text-text-primary mb-2">{article.title}</h3>
-                <p className="text-text-secondary mb-2">{article.author}</p>
-                <p className="text-text-secondary mb-4 line-clamp-2 flex-1">{article.content}</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <time className="text-sm text-gray-500">
-                    {new Date(article.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                  <a href={`/articles/${article.id}`} className="text-primary hover:text-primary-dark transition-colors duration-200">
-                    Read More →
-                  </a>
-                </div>
-              </div>
-            </article>
+          {paginatedArticles.map((article, index) => (
+            <ArticleCard key={article.id} article={article} index={index} />
           ))}
         </div>
 
@@ -231,5 +197,61 @@ export default function Articles() {
         )}
       </div>
     </section>
+  );
+}
+
+function ArticleCard({ article, index }: { article: Article, index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <article
+      ref={ref}
+      className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl hover:shadow-[0_8px_32px_0_rgba(255,140,0,0.37)] hover:scale-105 hover:border-orange-400/60 transition-all duration-300 flex flex-col ${visible ? 'animate-fadeUp' : 'opacity-0 translate-y-8'}`}
+      style={{ '--index': index } as React.CSSProperties}
+    >
+      <div className="relative h-48">
+        <Image
+          src={article.image}
+          alt={article.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover rounded-t-2xl opacity-80"
+          loading="lazy"
+        />
+        <span className="absolute top-3 left-3 bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full shadow">
+          {article.category}
+        </span>
+      </div>
+      <div className="p-6 flex-1 flex flex-col">
+        <h3 className="text-xl font-bold text-white mb-2 drop-shadow-md">{article.title}</h3>
+        <p className="text-white/80 mb-2">{article.author}</p>
+        <p className="text-white/90 mb-4 line-clamp-2 flex-1">{article.content}</p>
+        <div className="flex items-center justify-between mt-auto">
+          <time className="text-sm text-white/70">
+            {new Date(article.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+          <a href={`/articles/${article.id}`} className="text-orange-500 hover:text-pink-500 transition-colors duration-200">
+            Read More →
+          </a>
+        </div>
+      </div>
+    </article>
   );
 }

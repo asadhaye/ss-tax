@@ -108,3 +108,20 @@
 .heroGradient {
   background: linear-gradient(135deg, #67e8f9, #6366f1 80%);
 }
+
+/* Fade Up Animation for scroll-in effect */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 0.08s);
+}

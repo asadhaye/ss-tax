@@ -11,7 +11,10 @@ const navigation = [
   { name: 'Articles', href: '#articles' },
   { name: 'Calculators', href: '#calculators' },
   { name: 'Community', href: '#community' },
+  { name: 'About', href: '/about' },
   { name: 'Contact', href: '#contact' }
+
+  
 ];
 
 export default function Navbar() {

@@ -36,6 +36,21 @@ export default function AboutUs() {
                 Our team of experienced professionals, including Chartered Accountants and legal experts, is committed to delivering high-quality services with integrity and professionalism. We strive to build long-term relationships with our clients, becoming their trusted partner in achieving financial clarity and business growth.
               </p>
               {/* Add more details about the firm's history, mission, or values */}
+
+              <div className="mt-6">
+                <p className="mb-3">
+                  Sohail Siraj proudly continues the legacy of Sirajuddin Khalid & Company, a respected name in Tax & Visa Consultancy since 1968. As the son of the late Sirajuddin Sb, Sohail carries forward the values and expertise established by his father, dedicating his practice to providing exceptional tax legal services.
+                </p>
+                <p className="mb-3">
+                  With a deep understanding of the foundations laid by Sirajuddin Khalid & Company, Sohail assists individuals and businesses in navigating the complexities of tax law. He is committed to upholding the firm's reputation for integrity, knowledge, and personalized client care that has been a hallmark since 1968.
+                </p>
+                <p className="mb-3">
+                  Sohail's approach is centered on providing timely, practical, and cost-effective solutions, ensuring each client receives the attention and expertise needed to address their unique tax situation.
+                </p>
+                <p>
+                  Whether you require assistance with tax planning, resolving tax disputes, or understanding your tax obligations, Sohail Siraj is here to provide the knowledgeable support you need, building upon a rich family legacy of excellence in tax and visa consultancy.
+                </p>
+              </div>
             </div>
           </div>
 

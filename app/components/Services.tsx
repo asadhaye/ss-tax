@@ -1,11 +1,30 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { getServices } from '../lib/data';
 import { Service } from '../lib/interfaces';
 import styles from '../styles/animations.module.css';
 import ErrorMessage from './ErrorMessage';
+import { BriefcaseIcon, DocumentTextIcon, ScaleIcon, BuildingOffice2Icon, CalculatorIcon, CurrencyDollarIcon, ShieldCheckIcon, ChartBarIcon, UserGroupIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
+
+// Icon mapping based on service category or name
+const iconMap: Record<string, any> = {
+  'business-setup': BuildingOffice2Icon,
+  'tax-compliance': ClipboardDocumentCheckIcon,
+  'tax-litigation': ScaleIcon,
+  'legal-services': DocumentTextIcon,
+  'tax-planning': CalculatorIcon,
+  'business-advisory': ChartBarIcon,
+  'compliance': ShieldCheckIcon,
+  'international': UserGroupIcon,
+  'default': BriefcaseIcon,
+};
+
+function getServiceIcon(service: Service) {
+  // Try category first, fallback to default
+  return iconMap[service.category] || iconMap['default'];
+}
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
@@ -75,9 +94,9 @@ export default function Services() {
   }
 
   return (
-    <section id="services" className="py-20 hero-gradient-bg" aria-label="Services">
+    <section id="services" className="py-20 bg-gradient-to-br from-orange-400 via-yellow-300 to-pink-500" aria-label="Services">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 text-text-light">
+        <div className="text-center mb-12 text-white">
           <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${styles.fadeIn}`}>
             Our Services
           </h2>
@@ -128,69 +147,84 @@ export default function Services() {
 
         {filteredServices.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-text-secondary">No services found matching your criteria.</p>
+            <p className="text-white/90">No services found matching your criteria.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {filteredServices.map((service, index) => (
-              <article
-                key={service.id}
-                className={`
-                  bg-background border border-background-light rounded-xl shadow-lg
-                  hover:shadow-xl hover:scale-105 transition-all duration-300
-                  overflow-hidden flex flex-col
-                  ${styles.fadeIn}
-                  animate-in
-                `}
-                style={{ '--index': index } as React.CSSProperties}
-              >
-                <div className="relative h-48">
-                  <Image
-                    src={service.img}
-                    alt={service.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                  <span className="absolute top-3 left-3 bg-primary text-text-light text-xs px-3 py-1 rounded-full shadow">
-                     {service.category.replace('-', ' ')}
-                   </span>
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-semibold mb-2 text-text-primary">{service.name}</h3>
-                  <p className="text-text-secondary mb-4 line-clamp-2 flex-1">{service.description}</p>
-                  <a 
-                    href={service.link} 
-                    className="
-                      inline-block
-                      mt-auto
-                      bg-primary
-                      text-text-light
-                      px-8
-                      py-3
-                      rounded-md
-                      font-semibold
-                      shadow-lg
-                      hover:bg-primary-dark
-                      hover:shadow-xl
-                      transition-all 
-                      duration-300
-                      focus:outline-none
-                      focus:ring-2
-                      focus:ring-primary
-                      focus:ring-offset-2
-                    "
-                    aria-label={`Learn more about ${service.name}`}
-                  >
-                    View Details
-                  </a>
-                </div>
-              </article>
-            ))}
+            {filteredServices.map((service, index) => {
+              const Icon = getServiceIcon(service);
+              return (
+                <ServiceCard key={service.id} service={service} Icon={Icon} index={index} />
+              );
+            })}
           </div>
         )}
       </div>
     </section>
+  );
+}
+
+// ServiceCard component with scroll-in animation
+function ServiceCard({ service, Icon, index }: { service: Service, Icon: any, index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <article
+      ref={ref}
+      className={`
+        bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl
+        hover:shadow-[0_8px_32px_0_rgba(255,140,0,0.37)] hover:scale-105 hover:border-orange-400/60
+        transition-all duration-300 overflow-hidden flex flex-col items-center text-center
+        ${visible ? 'animate-fadeUp' : 'opacity-0 translate-y-8'}
+      `}
+      style={{ '--index': index } as React.CSSProperties}
+    >
+      <div className="relative w-full h-40 flex items-center justify-center bg-gradient-to-tr from-orange-300/40 via-yellow-200/30 to-pink-300/40">
+        {service.img && (
+          <Image
+            src={service.img}
+            alt={service.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            className="object-cover rounded-t-2xl opacity-70"
+            loading="lazy"
+          />
+        )}
+        <div className="absolute top-4 left-4">
+          <span className="bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full shadow">
+            {service.category.replace('-', ' ')}
+          </span>
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Icon className="w-12 h-12 text-white drop-shadow-lg" />
+        </div>
+      </div>
+      <div className="p-6 flex-1 flex flex-col items-center">
+        <h3 className="text-xl font-bold mb-2 text-white drop-shadow-md">{service.name}</h3>
+        <p className="text-white/90 mb-4 line-clamp-2 flex-1">{service.description}</p>
+        <a
+          href={service.link}
+          className="inline-block mt-auto bg-gradient-to-r from-orange-500 via-yellow-400 to-pink-500 text-white px-8 py-3 rounded-md font-semibold shadow-lg hover:from-orange-600 hover:to-pink-600 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
+          aria-label={`Learn more about ${service.name}`}
+        >
+          View Details
+        </a>
+      </div>
+    </article>
   );
 }
