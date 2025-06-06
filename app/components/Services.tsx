@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FC } from 'react';
 import Image from 'next/image';
 import { getServices } from '../lib/data';
 import { Service } from '../lib/interfaces';
@@ -26,12 +26,16 @@ function getServiceIcon(service: Service) {
   return iconMap[service.category] || iconMap['default'];
 }
 
-export default function Services() {
+interface ServicesProps {
+  previewCount?: number;
+  showHeading?: boolean;
+}
+
+const Services: FC<ServicesProps> = ({ previewCount, showHeading = true }) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'all', label: 'All Services' },
@@ -60,11 +64,10 @@ export default function Services() {
   }, []);
 
   const filteredServices = services.filter(service => {
-    const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory;
-    const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return selectedCategory === 'all' || service.category === selectedCategory;
   });
+
+  const displayedServices = previewCount ? filteredServices.slice(0, previewCount) : filteredServices;
 
   if (loading) {
     return (
@@ -94,64 +97,42 @@ export default function Services() {
   }
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-orange-400 via-yellow-300 to-pink-500" aria-label="Services">
+    <section id="services" className="py-20 bg-ceo dark:bg-cfo" aria-label="Services">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 text-white">
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${styles.fadeIn}`}>
-            Our Services
-          </h2>
-          <p className="mb-8 max-w-2xl mx-auto">
-            Comprehensive tax and business advisory services tailored to your needs
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-md mx-auto mb-8">
-            <div className="relative">
-              <input
-                type="search"
-                placeholder="Search services..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-                aria-label="Search services"
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
+        {showHeading && (
+          <div className="text-center mb-12 text-text-primary dark:text-text-light">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up">Our Services</h2>
+            <p className="mb-8 max-w-2xl mx-auto text-text-secondary dark:text-text-light">
+              Comprehensive tax and business advisory services tailored to your needs
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={
+                    `px-6 py-2 rounded-md text-sm font-medium border transition-colors duration-200
+                    ${selectedCategory === category.id
+                      ? 'bg-primary text-text-light border-primary shadow-sm'
+                      : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400 shadow-sm'
+                    }
+                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2`
+                  }
+                  aria-pressed={selectedCategory === category.id}
+                >
+                  {category.label}
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`
-                  px-6 py-2 rounded-md text-sm font-medium border transition-colors duration-200
-                  ${selectedCategory === category.id
-                    ? 'bg-primary text-text-light border-primary shadow-sm'
-                    : 'bg-background text-text-secondary border-gray-300 hover:bg-background-light hover:border-gray-400 shadow-sm'
-                  }
-                  focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                `}
-                aria-pressed={selectedCategory === category.id}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {filteredServices.length === 0 ? (
+        )}
+        {displayedServices.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-white/90">No services found matching your criteria.</p>
+            <p className="text-text-secondary dark:text-text-light">No services found matching your criteria.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {filteredServices.map((service, index) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {displayedServices.map((service, index) => {
               const Icon = getServiceIcon(service);
               return (
                 <ServiceCard key={service.id} service={service} Icon={Icon} index={index} />
@@ -162,69 +143,38 @@ export default function Services() {
       </div>
     </section>
   );
-}
+};
+
+export default Services;
 
 // ServiceCard component with scroll-in animation
 function ServiceCard({ service, Icon, index }: { service: Service, Icon: any, index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <article
-      ref={ref}
-      className={`
-        bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl
-        hover:shadow-[0_8px_32px_0_rgba(255,140,0,0.37)] hover:scale-105 hover:border-orange-400/60
-        transition-all duration-300 overflow-hidden flex flex-col items-center text-center
-        ${visible ? 'animate-fadeUp' : 'opacity-0 translate-y-8'}
-      `}
+      className={`relative bg-white/70 backdrop-blur-xl border border-white/60 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,41,55,0.18)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.22)] hover:scale-[1.04] transition-all duration-300 overflow-hidden flex flex-col items-center text-center scroll-fade-up group p-8 min-h-[340px]
+        dark:bg-[#23272f]/60 dark:backdrop-blur-2xl dark:border-white/20 dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.22)]
+        before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1/3 before:bg-white/40 before:rounded-t-[2rem] before:pointer-events-none
+        dark:before:bg-white/10`}
       style={{ '--index': index } as React.CSSProperties}
     >
-      <div className="relative w-full h-40 flex items-center justify-center bg-gradient-to-tr from-orange-300/40 via-yellow-200/30 to-pink-300/40">
-        {service.img && (
-          <Image
-            src={service.img}
-            alt={service.name}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-            className="object-cover rounded-t-2xl opacity-70"
-            loading="lazy"
-          />
-        )}
-        <div className="absolute top-4 left-4">
-          <span className="bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full shadow">
-            {service.category.replace('-', ' ')}
-          </span>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Icon className="w-12 h-12 text-white drop-shadow-lg" />
+      {/* Dark mode: pronounced glassy gradient overlay */}
+      <div className="pointer-events-none absolute inset-0 rounded-[2rem] z-0 hidden dark:block dark:bg-gradient-to-br dark:from-white/5 dark:via-primary-dark/20 dark:to-black/40" />
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-10">
+        <div className="bg-primary-light dark:bg-primary-dark text-white rounded-full p-5 shadow-xl border-4 border-white/80 dark:border-background-dark group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-9 h-9" />
         </div>
       </div>
-      <div className="p-6 flex-1 flex flex-col items-center">
-        <h3 className="text-xl font-bold mb-2 text-white drop-shadow-md">{service.name}</h3>
-        <p className="text-white/90 mb-4 line-clamp-2 flex-1">{service.description}</p>
-        <a
-          href={service.link}
-          className="inline-block mt-auto bg-gradient-to-r from-orange-500 via-yellow-400 to-pink-500 text-white px-8 py-3 rounded-md font-semibold shadow-lg hover:from-orange-600 hover:to-pink-600 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2"
-          aria-label={`Learn more about ${service.name}`}
-        >
-          View Details
-        </a>
+      <div className="pt-14 pb-4 px-2 flex-1 flex flex-col justify-between z-10">
+        <h3 className="text-xl font-semibold mb-2 text-primary dark:text-primary-light drop-shadow-sm">{service.name}</h3>
+        <p className="text-text-secondary dark:text-text-light text-base mb-2 opacity-80">{service.description}</p>
+        <span className="inline-block bg-primary/10 dark:bg-primary-dark/30 text-primary dark:text-primary-light font-semibold px-3 py-1 rounded-full text-sm mb-2 mt-1 border border-primary/20 dark:border-primary-dark/30">
+          {service.pricing}
+        </span>
       </div>
+      <div className="mt-auto z-10">
+        <a href={service.link} className="inline-block bg-accent text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200">Learn More</a>
+      </div>
+      <div className="absolute inset-0 pointer-events-none rounded-[2rem] border border-white/60 dark:border-white/20 shadow-inner" style={{boxShadow: 'inset 0 1.5px 12px 0 rgba(16,185,129,0.10)'}} />
     </article>
   );
 }

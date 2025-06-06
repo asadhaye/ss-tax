@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import styles from '../styles/animations.module.css';
 
 export default function AboutUs() {
   // Placeholder data for client logos - replace with actual data if available
@@ -12,10 +13,10 @@ export default function AboutUs() {
   ];
 
   return (
-    <div className="hero-gradient-bg py-20">
+    <section id="about" className="py-20 bg-ceo dark:bg-cfo">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto bg-background p-8 md:p-12 rounded-lg shadow-xl text-text-secondary">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-8 text-center">About Sohail Siraj (SIRAJUDDIN KHALID & COMPANY)</h1>
+        <div className="max-w-4xl mx-auto bg-background p-8 md:p-12 rounded-2xl shadow-2xl text-text-secondary">
+          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-8 text-center scroll-fade-up">About Sohail Siraj (SIRAJUDDIN KHALID & COMPANY)</h1>
 
           <div className="flex flex-col md:flex-row items-center md:space-x-12 mb-12">
             <div className="md:w-1/3 mb-8 md:mb-0">
@@ -57,10 +58,10 @@ export default function AboutUs() {
           {/* Trust Signals: Client Logos */}
           {clientLogos.length > 0 && (
             <div className="mt-16">
-              <h2 className="text-2xl font-bold text-text-primary mb-8 text-center">Trusted By</h2>
+              <h2 className="text-2xl font-bold text-text-primary mb-8 text-center scroll-fade-up">Trusted By</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 opacity-75">
-                {clientLogos.map(client => (
-                  <div key={client.id} className="p-4 bg-gray-50 rounded-lg flex items-center justify-center">
+                {clientLogos.map((client, idx) => (
+                  <div key={client.id} className="p-4 bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl flex items-center justify-center shadow-2xl transition-all duration-300 scroll-fade-up" style={{ '--index': idx } as React.CSSProperties}>
                     <Image
                       src={client.logo}
                       alt={`${client.name} logo`}
@@ -77,12 +78,12 @@ export default function AboutUs() {
           {/* Placeholder for Team Section (Optional - can be a separate page) */}
           
           <div className="mt-16">
-            <h2 className="text-2xl font-bold text-text-primary mb-8 text-center">Our Team</h2>
+            <h2 className="text-2xl font-bold text-text-primary mb-8 text-center scroll-fade-up">Our Team</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Map through team members here */}
               {/* Example Team Member Card */}
               
-              <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
+              <div className="bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl text-text-secondary text-center p-6 transition-all duration-300 scroll-fade-up" style={{ '--index': 0 } as React.CSSProperties}>
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
                   alt="Sohail Siraj"
@@ -96,7 +97,7 @@ export default function AboutUs() {
                 {/* Add a short bio or expertise */}
               </div>
 
-              <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
+              <div className="bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl text-text-secondary text-center p-6 transition-all duration-300 scroll-fade-up" style={{ '--index': 1 } as React.CSSProperties}>
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
                   alt="Team Member 2"
@@ -110,7 +111,7 @@ export default function AboutUs() {
                 {/* Add a short bio or expertise */}
               </div>
 
-              <div className="bg-background p-6 rounded-lg shadow text-text-secondary text-center">
+              <div className="bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl text-text-secondary text-center p-6 transition-all duration-300 scroll-fade-up" style={{ '--index': 2 } as React.CSSProperties}>
                 <Image
                   src="/images/team-member-placeholder.jpg" // Replace with actual image path
                   alt="Team Member 3"
@@ -129,6 +130,6 @@ export default function AboutUs() {
           
         </div>
       </div>
-    </div>
+    </section>
   );
 } 

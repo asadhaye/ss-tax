@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
-import { colors } from './app/styles/colors'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -11,14 +11,19 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          light: '#4A90E2',
-          DEFAULT: '#2563EB',
-          dark: '#1E40AF',
+          light: '#60A5FA', // blue-400
+          DEFAULT: '#2563EB', // blue-600
+          dark: '#1E40AF', // blue-800
         },
-        secondary: {
-          light: '#10B981',
-          DEFAULT: '#059669',
-          dark: '#047857',
+        accent: {
+          light: '#6EE7B7', // emerald-300
+          DEFAULT: '#10B981', // emerald-500
+          dark: '#059669', // emerald-600
+        },
+        background: {
+          light: '#F9FAFB',
+          DEFAULT: '#FFFFFF',
+          dark: '#1F2937',
         },
         text: {
           primary: '#111827',
@@ -26,21 +31,10 @@ const config: Config = {
           muted: '#6B7280',
           light: '#F9FAFB',
         },
-        background: {
-          light: '#F9FAFB',
-          DEFAULT: '#FFFFFF',
-          dark: '#1F2937',
-        },
-        // Add any other custom colors from globals.css if needed
-        // e.g., if you use specific shades like gray-900 often and want a dedicated name
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      colorAdjust: {
-        DEFAULT: 'exact',
+        'gradient-ceo': 'linear-gradient(135deg, #e0e7ef 0%, #f9fafb 100%)',
+        'gradient-cfo': 'linear-gradient(135deg, #1e293b 0%, #2563eb 100%)',
       },
     },
   },

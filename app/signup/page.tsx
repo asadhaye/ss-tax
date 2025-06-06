@@ -106,8 +106,8 @@ export default function Signup() {
         </div>
         <p className="mt-4 text-center text-text-secondary">
           Already have an account?{' '}
-          <Link
-            href="/login"
+          <Link 
+            href="/login" 
             className="text-primary hover:text-primary-dark hover:underline transition-colors duration-200"
           >
             Login

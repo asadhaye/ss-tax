@@ -1,10 +1,15 @@
 'use client';
 
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, FC } from 'react';
 import Image from 'next/image';
 import { Article } from '../lib/types';
 
-export default function Articles() {
+interface ArticlesProps {
+  previewCount?: number;
+  showHeading?: boolean;
+}
+
+const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
   const [articles] = useState<Article[]>([
     { 
       id: 1, 
@@ -28,7 +33,6 @@ export default function Articles() {
     }
   ]);
 
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -38,12 +42,8 @@ export default function Articles() {
 
   const filteredAndSortedArticles = useMemo(() => {
     let filtered = articles.filter(article => {
-      const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          article.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          article.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          article.category.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
-      return matchesSearch && matchesCategory;
+      return matchesCategory;
     });
 
     // Apply sorting
@@ -59,7 +59,7 @@ export default function Articles() {
     });
 
     return filtered;
-  }, [articles, searchQuery, selectedCategory, sortBy]);
+  }, [articles, selectedCategory, sortBy]);
 
   const totalPages = Math.ceil(filteredAndSortedArticles.length / itemsPerPage);
   const paginatedArticles = filteredAndSortedArticles.slice(
@@ -67,99 +67,84 @@ export default function Articles() {
     currentPage * itemsPerPage
   );
 
+  const displayedArticles = previewCount ? filteredAndSortedArticles.slice(0, previewCount) : paginatedArticles;
+
   return (
-    <section id="articles" className="py-20 bg-gradient-to-br from-orange-400 via-yellow-300 to-pink-500 print:bg-background">
+    <section id="articles" className="py-20 bg-ceo dark:bg-cfo print:bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12 text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Latest Articles & Blogs
-          </h2>
-          {/* Search, Filter, and Sort Controls */}
-          <div className="bg-background p-6 rounded-lg shadow-xl max-w-3xl mx-auto mb-12 border border-background-light text-text-secondary">
-            {/* Search Bar */}
-            <div className="mb-6">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 text-text-primary"
-                  aria-label="Search articles"
-                />
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
+        {showHeading && (
+          <div className="text-center mb-12 text-text-primary dark:text-text-light">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up">
+              Latest Articles & Blogs
+            </h2>
+            {/* Search, Filter, and Sort Controls */}
+            <div className="bg-background p-6 rounded-lg shadow-xl max-w-3xl mx-auto mb-12 border border-background-light text-text-secondary">
+              {/* Category Filter */}
+              <div className="mb-6">
+                <label className="block text-left text-text-primary text-sm font-medium mb-2">Filter by Category:</label>
+                <div className="flex flex-wrap gap-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`
+                        px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                        ${selectedCategory === category
+                          ? 'bg-primary text-text-light border-primary shadow-sm'
+                          : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'
+                        }
+                        focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                      `}
+                      aria-pressed={selectedCategory === category}
+                    >
+                      {category === 'all' ? 'All Categories' : category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Sort By */}
+              <div>
+                <label className="block text-left text-text-primary text-sm font-medium mb-2">Sort By:</label>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSortBy('dateDesc')}
+                    className={`
+                      px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                      ${sortBy === 'dateDesc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                    `}
+                  >
+                    Newest
+                  </button>
+                  <button
+                    onClick={() => setSortBy('dateAsc')}
+                    className={`
+                      px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                      ${sortBy === 'dateAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                    `}
+                  >
+                    Oldest
+                  </button>
+                  <button
+                    onClick={() => setSortBy('titleAsc')}
+                    className={`
+                      px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
+                      ${sortBy === 'titleAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                    `}
+                  >
+                    Title (A-Z)
+                  </button>
                 </div>
               </div>
             </div>
-
-            {/* Category Filter */}
-            <div className="mb-6">
-              <label className="block text-left text-text-primary text-sm font-medium mb-2">Filter by Category:</label>
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`
-                      px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
-                      ${selectedCategory === category
-                        ? 'bg-primary text-text-light border-primary shadow-sm'
-                        : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'
-                      }
-                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                    `}
-                    aria-pressed={selectedCategory === category}
-                  >
-                    {category === 'all' ? 'All Categories' : category}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            {/* Sort By */}
-            <div>
-              <label className="block text-left text-text-primary text-sm font-medium mb-2">Sort By:</label>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setSortBy('dateDesc')}
-                  className={`
-                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
-                    ${sortBy === 'dateDesc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
-                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                  `}
-                >
-                  Newest
-                </button>
-                <button
-                  onClick={() => setSortBy('dateAsc')}
-                  className={`
-                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
-                    ${sortBy === 'dateAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
-                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                  `}
-                >
-                  Oldest
-                </button>
-                <button
-                  onClick={() => setSortBy('titleAsc')}
-                  className={`
-                    px-4 py-2 rounded-full text-xs font-medium border transition-colors duration-200
-                    ${sortBy === 'titleAsc' ? 'bg-primary text-text-light border-primary shadow-sm' : 'bg-background-light text-text-secondary border-gray-200 hover:bg-background hover:border-gray-300 shadow-sm'}
-                    focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
-                  `}
-                >
-                  Title (A-Z)
-                </button>
-              </div>
-            </div>
           </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedArticles.map((article, index) => (
+          {displayedArticles.map((article, index) => (
             <ArticleCard key={article.id} article={article} index={index} />
           ))}
         </div>
@@ -198,59 +183,22 @@ export default function Articles() {
       </div>
     </section>
   );
-}
+};
+
+export default Articles;
 
 function ArticleCard({ article, index }: { article: Article, index: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
   return (
     <article
-      ref={ref}
-      className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl hover:shadow-[0_8px_32px_0_rgba(255,140,0,0.37)] hover:scale-105 hover:border-orange-400/60 transition-all duration-300 flex flex-col ${visible ? 'animate-fadeUp' : 'opacity-0 translate-y-8'}`}
+      className={`bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.18)] hover:scale-105 transition-all duration-300 flex flex-col scroll-fade-up p-6 min-h-[320px]`}
       style={{ '--index': index } as React.CSSProperties}
     >
-      <div className="relative h-48">
-        <Image
-          src={article.image}
-          alt={article.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover rounded-t-2xl opacity-80"
-          loading="lazy"
-        />
-        <span className="absolute top-3 left-3 bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full shadow">
-          {article.category}
-        </span>
+      <div className="flex-1 flex flex-col justify-between">
+        <h3 className="text-lg font-semibold mb-2 text-primary dark:text-white drop-shadow-sm">{article.title}</h3>
+        <p className="text-text-secondary dark:text-gray-300 text-base mb-4 opacity-80">{article.content}</p>
       </div>
-      <div className="p-6 flex-1 flex flex-col">
-        <h3 className="text-xl font-bold text-white mb-2 drop-shadow-md">{article.title}</h3>
-        <p className="text-white/80 mb-2">{article.author}</p>
-        <p className="text-white/90 mb-4 line-clamp-2 flex-1">{article.content}</p>
-        <div className="flex items-center justify-between mt-auto">
-          <time className="text-sm text-white/70">
-            {new Date(article.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
-          <a href={`/articles/${article.id}`} className="text-orange-500 hover:text-pink-500 transition-colors duration-200">
-            Read More →
-          </a>
-        </div>
+      <div className="mt-auto">
+        <a href="#" className="inline-block bg-accent text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200">Read More</a>
       </div>
     </article>
   );

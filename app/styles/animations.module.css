@@ -125,3 +125,60 @@
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: calc(var(--index, 0) * 0.08s);
 }
+
+/* --- CSS Scroll-Linked Animations (View Timeline) --- */
+@keyframes scroll-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes scroll-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-fade-in {
+  opacity: 0;
+  animation: scroll-fade-in linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.scroll-fade-up {
+  opacity: 0;
+  animation: scroll-fade-up linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Fallback for browsers that do not support scroll-timeline */
+@supports not (animation-timeline: view()) {
+  .scroll-fade-in,
+  .scroll-fade-up {
+    animation-timeline: unset;
+    animation-range: unset;
+    /* fallback to fadeIn/fadeUp if needed */
+  }
+}
+
+/* Section backgrounds for CEO (light) and CFO (dark) */
+.bg-ceo {
+  background-image: linear-gradient(135deg, #e0e7ef 0%, #f9fafb 100%);
+}
+.dark .bg-cfo {
+  background-image: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
+}
+
+/* Remove old orange/yellow/pink references from documentation */

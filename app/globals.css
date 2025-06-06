@@ -60,3 +60,13 @@ body {
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+.bg-ceo {
+  background-image: linear-gradient(135deg, #e0e7ef 0%, #f9fafb 100%);
+}
+.bg-cfo {
+  background-image: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
+}
+.dark .bg-ceo {
+  background: none !important;
+}

@@ -91,7 +91,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full`}>
+      <body className={`${inter.className} h-full relative`}>
+        {/* Glassmorphism background for dark mode */}
+        <div className="fixed inset-0 -z-10 pointer-events-none hidden dark:block dark:bg-gradient-to-br dark:from-[#23272f] dark:via-primary-dark/60 dark:to-black/90 dark:backdrop-blur-2xl" />
         <OrganizationJsonLd
           name="SIRAJUDDIN KHALID & COMPANY"
           url="https://sohailsiraj.esq"

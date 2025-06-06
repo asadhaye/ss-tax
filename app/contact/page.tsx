@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
+import styles from '../styles/animations.module.css';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -53,28 +54,25 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="hero-gradient-bg py-12 px-4">
-      <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto bg-background p-8 rounded-lg shadow-xl">
-          <h1 className="text-3xl font-bold text-text-primary mb-8 text-center">Contact Us</h1>
-
+    <section id="contact" className="py-20 bg-ceo dark:bg-cfo">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto bg-background p-8 md:p-12 rounded-2xl shadow-2xl">
+          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-8 text-center scroll-fade-up">Contact Us</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {/* Contact Information */}
-            <div>
+            <div className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-6 text-text-secondary transition-all duration-300 scroll-fade-up`}
+              style={{ '--index': 0 } as React.CSSProperties}>
               <h2 className="text-2xl font-semibold text-text-primary mb-4">Get in Touch</h2>
               <p className="text-text-secondary mb-4">We are here to help. Please reach out to us via phone, email, or visit our office.</p>
-
               <div className="space-y-3 text-text-secondary">
-                <p><strong>Phone:</strong> +92-123-4567890 {/* Replace with actual phone number */}</p>
-                <p><strong>Email:</strong> contact@sohailsiraj.esq {/* Replace with actual email */}</p>
-                {/* Add physical address if applicable */}
-                {/* <p><strong>Address:</strong> Your Office Address Here</p> */}
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/923232200100" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">0323-2200100</a> {/* Link to WhatsApp */}</p>
+                <p><strong>Phone:</strong> +92-123-4567890</p>
+                <p><strong>Email:</strong> contact@sohailsiraj.esq</p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/923232200100" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">0323-2200100</a></p>
               </div>
             </div>
-
             {/* Contact Form */}
-            <div>
+            <div className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-6 text-text-secondary transition-all duration-300 scroll-fade-up`}
+              style={{ '--index': 1 } as React.CSSProperties}>
               <h2 className="text-2xl font-semibold text-text-primary mb-4">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -125,7 +123,7 @@ export default function ContactUs() {
                   className="w-full bg-primary text-text-light py-3 rounded-md font-semibold hover:bg-primary-dark transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg"
                   disabled={status === 'loading'}
                 >
-                   {status === 'loading' ? (
+                  {status === 'loading' ? (
                     <>
                       <LoadingSpinner size="small" color="text-text-light" />
                       <span className="ml-2">Sending...</span>
@@ -139,6 +137,6 @@ export default function ContactUs() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 } 

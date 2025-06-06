@@ -6,6 +6,7 @@ export interface Service {
   img: string;
   link: string;
   category: string;
+  pricing: string;
 }
 
 export interface UserCredential {
