@@ -73,7 +73,9 @@ body {
 
 /* Light mode background styles */
 .bg-ceo {
-  background-color: var(--background);
+  background: linear-gradient(-45deg, #e0e7ef, #f9fafb, #ffffff, #f3f4f6) !important;
+  background-size: 400% 400% !important;
+  animation: gradient 15s ease infinite !important;
 }
 
 .bg-cfo {
