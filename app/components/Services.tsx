@@ -71,7 +71,7 @@ const Services: FC<ServicesProps> = ({ previewCount, showHeading = true }) => {
 
   if (loading) {
     return (
-      <section id="services" className="py-20 hero-gradient-bg" aria-label="Services">
+      <section id="services" className="py-20 bg-ceo dark:bg-cfo hero-gradient-bg" aria-label="Services">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {Array.from({ length: 4 }, (_, i) => (
@@ -100,8 +100,8 @@ const Services: FC<ServicesProps> = ({ previewCount, showHeading = true }) => {
     <section id="services" className="py-20 bg-ceo dark:bg-cfo" aria-label="Services">
       <div className="container mx-auto px-4">
         {showHeading && (
-          <div className="text-center mb-12 text-text-primary dark:text-text-light">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up">Our Services</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary dark:text-text-light">Our Services</h2>
             <p className="mb-8 max-w-2xl mx-auto text-text-secondary dark:text-text-light">
               Comprehensive tax and business advisory services tailored to your needs
             </p>
@@ -151,7 +151,7 @@ export default Services;
 function ServiceCard({ service, Icon, index }: { service: Service, Icon: any, index: number }) {
   return (
     <article
-      className={`relative bg-white/70 backdrop-blur-xl border border-white/60 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,41,55,0.18)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.22)] hover:scale-[1.04] transition-all duration-300 overflow-hidden flex flex-col items-center text-center scroll-fade-up group p-8 min-h-[340px]
+      className={`relative bg-background/70 backdrop-blur-xl border border-white/60 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,41,55,0.18)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.22)] hover:scale-[1.04] transition-all duration-300 overflow-hidden flex flex-col items-center text-center scroll-fade-up group p-8 min-h-[480px]
         dark:bg-[#23272f]/60 dark:backdrop-blur-2xl dark:border-white/20 dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.22)]
         before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1/3 before:bg-white/40 before:rounded-t-[2rem] before:pointer-events-none
         dark:before:bg-white/10`}
@@ -159,15 +159,15 @@ function ServiceCard({ service, Icon, index }: { service: Service, Icon: any, in
     >
       {/* Dark mode: pronounced glassy gradient overlay */}
       <div className="pointer-events-none absolute inset-0 rounded-[2rem] z-0 hidden dark:block dark:bg-gradient-to-br dark:from-white/5 dark:via-primary-dark/20 dark:to-black/40" />
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-10">
-        <div className="bg-primary-light dark:bg-primary-dark text-white rounded-full p-5 shadow-xl border-4 border-white/80 dark:border-background-dark group-hover:scale-110 transition-transform duration-300">
-          <Icon className="w-9 h-9" />
+      <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10">
+        <div className="bg-primary-light dark:bg-primary-dark text-white rounded-full p-3 shadow-xl border-4 border-white/80 dark:border-background-dark group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-7 h-7" />
         </div>
       </div>
-      <div className="pt-14 pb-4 px-2 flex-1 flex flex-col justify-between z-10">
-        <h3 className="text-xl font-semibold mb-2 text-primary dark:text-primary-light drop-shadow-sm">{service.name}</h3>
-        <p className="text-text-secondary dark:text-text-light text-base mb-2 opacity-80">{service.description}</p>
-        <span className="inline-block bg-primary/10 dark:bg-primary-dark/30 text-primary dark:text-primary-light font-semibold px-3 py-1 rounded-full text-sm mb-2 mt-1 border border-primary/20 dark:border-primary-dark/30">
+      <div className="pt-16 pb-4 px-2 flex-1 flex flex-col justify-between z-10 gap-4">
+        <h3 className="text-xl font-semibold text-text-primary dark:text-text-light drop-shadow-sm">{service.name}</h3>
+        <p className="text-text-secondary dark:text-text-light text-base opacity-90">{service.description}</p>
+        <span className="inline-block bg-primary/10 dark:bg-primary-dark/30 text-primary dark:text-text-light font-semibold px-3 py-1 rounded-full text-sm border border-primary/20 dark:border-primary-dark/30">
           {service.pricing}
         </span>
       </div>

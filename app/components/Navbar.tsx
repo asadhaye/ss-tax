@@ -19,7 +19,7 @@ const navigation = [
 export default function Navbar() {
   const { user, setUser } = useContext(AuthContext)!;
   const router = useRouter();
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

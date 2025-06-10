@@ -56,27 +56,28 @@ export default function ContactUs() {
   return (
     <section id="contact" className="py-20 bg-ceo dark:bg-cfo">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto bg-background p-8 md:p-12 rounded-2xl shadow-2xl">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-8 text-center scroll-fade-up">Contact Us</h1>
+        <div className="max-w-3xl mx-auto bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] p-8 md:p-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-text-primary dark:text-text-light mb-8 text-center scroll-fade-up">Contact Us</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             {/* Contact Information */}
-            <div className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-6 text-text-secondary transition-all duration-300 scroll-fade-up`}
+            <div className={`bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] p-6 text-text-secondary dark:text-text-light transition-all duration-300 scroll-fade-up`}
               style={{ '--index': 0 } as React.CSSProperties}>
-              <h2 className="text-2xl font-semibold text-text-primary mb-4">Get in Touch</h2>
-              <p className="text-text-secondary mb-4">We are here to help. Please reach out to us via phone, email, or visit our office.</p>
-              <div className="space-y-3 text-text-secondary">
-                <p><strong>Phone:</strong> +92-123-4567890</p>
-                <p><strong>Email:</strong> contact@sohailsiraj.esq</p>
-                <p><strong>WhatsApp:</strong> <a href="https://wa.me/923232200100" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">0323-2200100</a></p>
+              <h2 className="text-2xl font-semibold text-text-primary dark:text-text-light mb-4">Get in Touch</h2>
+              <p className="text-text-secondary dark:text-text-light mb-4">We are here to help. Please reach out to us via phone, email, or visit our office.</p>
+              <div className="space-y-3 text-text-secondary dark:text-text-light">
+                <p><strong>Address:</strong> OFFICE NO.26-G, HAJVERY COMPLEX, 2-MOZANG ROAD, LAHORE, PAKISTAN., Lahore, Pakistan</p>
+                <p><strong>Phone:</strong> +92 323 220 01 00</p>
+                <p><strong>Email:</strong> <a href="mailto:sohailsiraj@hotmail.com" className="text-primary hover:underline">sohailsiraj@hotmail.com</a></p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/923232200100" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">+92 323 220 01 00</a></p>
               </div>
             </div>
             {/* Contact Form */}
-            <div className={`bg-white/30 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-6 text-text-secondary transition-all duration-300 scroll-fade-up`}
+            <div className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] p-6 text-text-secondary dark:text-text-light transition-all duration-300 scroll-fade-up`}
               style={{ '--index': 1 } as React.CSSProperties}>
-              <h2 className="text-2xl font-semibold text-text-primary mb-4">Send us a Message</h2>
+              <h2 className="text-2xl font-semibold text-text-primary dark:text-text-light mb-4">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-text-secondary text-sm font-medium mb-1">Name</label>
+                  <label htmlFor="name" className="block text-text-secondary dark:text-text-light text-sm font-medium mb-1">Name</label>
                   <input
                     type="text"
                     id="name"
@@ -89,7 +90,7 @@ export default function ContactUs() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-text-secondary text-sm font-medium mb-1">Email</label>
+                  <label htmlFor="email" className="block text-text-secondary dark:text-text-light text-sm font-medium mb-1">Email</label>
                   <input
                     type="email"
                     id="email"
@@ -102,7 +103,7 @@ export default function ContactUs() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-text-secondary text-sm font-medium mb-1">Message</label>
+                  <label htmlFor="message" className="block text-text-secondary dark:text-text-light text-sm font-medium mb-1">Message</label>
                   <textarea
                     id="message"
                     name="message"

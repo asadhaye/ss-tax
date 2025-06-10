@@ -73,8 +73,8 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
     <section id="articles" className="py-20 bg-ceo dark:bg-cfo print:bg-background">
       <div className="container mx-auto px-4">
         {showHeading && (
-          <div className="text-center mb-12 text-text-primary dark:text-text-light">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-primary dark:text-text-light mb-4 scroll-fade-up">
               Latest Articles & Blogs
             </h2>
             {/* Search, Filter, and Sort Controls */}
@@ -190,15 +190,15 @@ export default Articles;
 function ArticleCard({ article, index }: { article: Article, index: number }) {
   return (
     <article
-      className={`bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.18)] hover:scale-105 transition-all duration-300 flex flex-col scroll-fade-up p-6 min-h-[320px]`}
+      className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.18)] hover:scale-105 transition-all duration-300 flex flex-col scroll-fade-up p-6 min-h-[320px]`}
       style={{ '--index': index } as React.CSSProperties}
     >
       <div className="flex-1 flex flex-col justify-between">
-        <h3 className="text-lg font-semibold mb-2 text-primary dark:text-white drop-shadow-sm">{article.title}</h3>
-        <p className="text-text-secondary dark:text-gray-300 text-base mb-4 opacity-80">{article.content}</p>
+        <h3 className="text-lg font-semibold mb-2 text-primary dark:text-text-light drop-shadow-sm">{article.title}</h3>
+        <p className="text-text-secondary dark:text-text-light text-base mb-4 opacity-80">{article.content}</p>
       </div>
       <div className="mt-auto">
-        <a href="#" className="inline-block bg-accent text-white font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200">Read More</a>
+        <a href="#" className="inline-block bg-accent text-text-light font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200">Read More</a>
       </div>
     </article>
   );

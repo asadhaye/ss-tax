@@ -32,7 +32,7 @@ const TaxCalculators: FC<TaxCalculatorsProps> = ({ previewCount, showHeading = t
       <div className="container mx-auto text-center px-4">
         {showHeading && (
           <>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 scroll-fade-up text-text-primary dark:text-text-light">Tax Calculators</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 scroll-fade-up text-primary dark:text-text-light">Tax Calculators</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto text-text-secondary dark:text-text-light">Our comprehensive tax calculators are currently under development and will be available soon to assist you.</p>
           </>
         )}
@@ -51,13 +51,13 @@ export default TaxCalculators;
 function CalculatorCard({ calc, index }: { calc: Calculator, index: number }) {
   return (
     <div
-      className={`bg-white/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] transition-all duration-300 flex flex-col justify-between scroll-fade-up p-8 min-h-[220px]`}
+      className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] transition-all duration-300 flex flex-col justify-between scroll-fade-up p-8 min-h-[220px]`}
       style={{ '--index': index } as React.CSSProperties}
     >
-      <h3 className="text-xl font-semibold mb-2 text-primary dark:text-white drop-shadow-sm">{calc.title}</h3>
-      <p className="text-text-secondary dark:text-gray-300 mb-4 flex-1 opacity-80">{calc.description}</p>
+      <h3 className="text-xl font-semibold mb-2 text-primary dark:text-text-light drop-shadow-sm">{calc.title}</h3>
+      <p className="text-text-secondary dark:text-text-light mb-4 flex-1 opacity-80">{calc.description}</p>
       <button
-        className="mt-auto bg-accent text-white px-6 py-3 rounded-lg font-semibold opacity-80 cursor-not-allowed"
+        className="mt-auto bg-accent text-text-light px-6 py-3 rounded-lg font-semibold opacity-80 cursor-not-allowed"
         disabled={true}
       >
         {calc.buttonText}

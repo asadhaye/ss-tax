@@ -12,7 +12,7 @@ export default function Home() {
       {/* Services Teaser */}
       <section className="py-16 bg-ceo dark:bg-cfo">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-text-light">Our Services</h2>
           <div className="max-w-4xl mx-auto mb-8">
             <Services previewCount={3} showHeading={false} />
           </div>
@@ -22,7 +22,7 @@ export default function Home() {
       {/* Articles Teaser */}
       <section className="py-16 bg-ceo dark:bg-cfo">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Latest Articles</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-text-light">Latest Articles</h2>
           <div className="max-w-4xl mx-auto mb-8">
             <Articles previewCount={3} showHeading={false} />
           </div>
@@ -32,7 +32,7 @@ export default function Home() {
       {/* Calculators Teaser */}
       <section className="py-16 bg-ceo dark:bg-cfo">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Tax Calculators</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-text-light">Tax Calculators</h2>
           <div className="max-w-4xl mx-auto mb-8">
             <TaxCalculators previewCount={1} showHeading={false} />
           </div>
@@ -42,7 +42,7 @@ export default function Home() {
       {/* Community Teaser */}
       <section className="py-16 bg-ceo dark:bg-cfo">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Community</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-text-light">Join Our Community</h2>
           <div className="max-w-2xl mx-auto mb-8">
             <JoinCommunity previewOnly showHeading={false} />
           </div>

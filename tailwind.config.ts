@@ -11,25 +11,25 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          light: '#60A5FA', // blue-400
-          DEFAULT: '#2563EB', // blue-600
+          light: '#3B82F6', // blue-500
+          DEFAULT: '#1D4ED8', // blue-700
           dark: '#1E40AF', // blue-800
         },
         accent: {
-          light: '#6EE7B7', // emerald-300
-          DEFAULT: '#10B981', // emerald-500
-          dark: '#059669', // emerald-600
+          light: '#34D399', // emerald-400
+          DEFAULT: '#059669', // emerald-600
+          dark: '#047857', // emerald-700
         },
         background: {
-          light: '#F9FAFB',
+          light: '#FFFFFF',
           DEFAULT: '#FFFFFF',
-          dark: '#1F2937',
+          dark: '#111827', // gray-900
         },
         text: {
-          primary: '#111827',
-          secondary: '#374151',
-          muted: '#6B7280',
-          light: '#F9FAFB',
+          primary: '#111827', // gray-900
+          secondary: '#374151', // gray-700
+          muted: '#6B7280', // gray-500
+          light: '#F9FAFB', // gray-50
         },
       },
       backgroundImage: {
