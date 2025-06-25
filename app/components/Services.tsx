@@ -149,12 +149,31 @@ export default Services;
 
 // ServiceCard component with scroll-in animation
 function ServiceCard({ service, Icon, index }: { service: Service, Icon: any, index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <article
-      className={`relative bg-background/70 backdrop-blur-xl border border-white/60 rounded-[2rem] shadow-[0_8px_32px_0_rgba(31,41,55,0.18)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.22)] hover:scale-[1.04] transition-all duration-300 overflow-hidden flex flex-col items-center text-center scroll-fade-up group p-8 min-h-[480px]
-        dark:bg-[#23272f]/60 dark:backdrop-blur-2xl dark:border-white/20 dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.22)]
-        before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1/3 before:bg-white/40 before:rounded-t-[2rem] before:pointer-events-none
-        dark:before:bg-white/10`}
+      ref={cardRef}
+      className={`ss-card scroll-fade-up relative overflow-hidden items-center text-center group ${isVisible ? 'visible' : ''}`}
       style={{ '--index': index } as React.CSSProperties}
     >
       {/* Dark mode: pronounced glassy gradient overlay */}

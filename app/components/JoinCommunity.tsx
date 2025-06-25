@@ -41,7 +41,7 @@ export default JoinCommunity;
 function AnimatedCard() {
   return (
     <div
-      className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] max-w-md mx-auto p-8 text-text-primary dark:text-text-light transition-all duration-300 scroll-fade-up`}
+      className="ss-card scroll-fade-up max-w-md mx-auto text-text-primary dark:text-text-light"
       style={{ '--index': 0 } as React.CSSProperties}
     >
       <p className="mb-4 font-semibold">Please provide:</p>

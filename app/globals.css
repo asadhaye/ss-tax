@@ -103,3 +103,8 @@ body {
     background-position: 0% 50%;
   }
 }
+
+/* Consistent card utility class for all homepage sections */
+.ss-card {
+  @apply bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] transition-all duration-300 flex flex-col p-8 min-h-[320px];
+}

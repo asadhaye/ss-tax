@@ -51,7 +51,7 @@ export default TaxCalculators;
 function CalculatorCard({ calc, index }: { calc: Calculator, index: number }) {
   return (
     <div
-      className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] transition-all duration-300 flex flex-col justify-between scroll-fade-up p-8 min-h-[220px]`}
+      className="ss-card scroll-fade-up"
       style={{ '--index': index } as React.CSSProperties}
     >
       <h3 className="text-xl font-semibold mb-2 text-primary dark:text-text-light drop-shadow-sm">{calc.title}</h3>

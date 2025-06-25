@@ -190,7 +190,7 @@ export default Articles;
 function ArticleCard({ article, index }: { article: Article, index: number }) {
   return (
     <article
-      className={`bg-background/40 dark:bg-white/10 backdrop-blur-lg border border-white/30 dark:border-white/20 rounded-3xl shadow-[0_8px_32px_0_rgba(31,41,55,0.12)] dark:shadow-[0_8px_32px_0_rgba(16,185,129,0.12)] hover:shadow-[0_16px_48px_0_rgba(37,99,235,0.18)] hover:scale-105 transition-all duration-300 flex flex-col scroll-fade-up p-6 min-h-[320px]`}
+      className={`ss-card scroll-fade-up`}
       style={{ '--index': index } as React.CSSProperties}
     >
       <div className="flex-1 flex flex-col justify-between">
