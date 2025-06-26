@@ -9,7 +9,7 @@ const slides = [
     title: 'Your Trusted Tax and Business Partner in Pakistan',
     description: "Expert guidance for individuals and businesses navigating Pakistan's tax landscape.",
     cta: 'Get in Touch',
-    ctaHref: '#contact',
+    ctaHref: '/contact',
     image: '/fbr-updates.png',
   },
   {
@@ -17,7 +17,7 @@ const slides = [
     title: 'Maximize Your Tax Savings',
     description: 'Let our experts help you optimize your tax strategy and ensure compliance.',
     cta: 'Book a Consultation',
-    ctaHref: '#contact',
+    ctaHref: '/contact',
     image: '/slide2.png',
   },
   {

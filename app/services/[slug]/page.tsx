@@ -84,7 +84,7 @@ export default async function ServiceDetail({ params }: ServiceDetailProps) {
 
             <div className="mt-8">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-block bg-primary text-text-light px-8 py-3 rounded-md font-semibold text-lg shadow-lg hover:bg-primary-dark transition-all duration-300"
               >
                 Inquire About This Service
