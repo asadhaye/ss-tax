@@ -80,7 +80,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
               </svg>
             </li>
             <li>
-              <Link href="/#articles" className="text-text-light hover:underline">
+              <Link href="/articles" className="text-text-light hover:underline">
                 Articles
               </Link>
             </li>
@@ -127,7 +127,7 @@ export default async function ArticleDetail({ params }: { params: Promise<{ slug
           </div>
 
           <div className="mt-8">
-            <Link href="/#articles" className="text-primary hover:underline">
+            <Link href="/articles" className="text-primary hover:underline">
               ← Back to Articles
             </Link>
           </div>

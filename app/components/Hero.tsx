@@ -25,7 +25,7 @@ const slides = [
     title: 'Business Advisory Services',
     description: 'Grow your business with our tailored advisory and compliance solutions.',
     cta: 'Learn More',
-    ctaHref: '#services',
+    ctaHref: '/services',
     image: '/slide3.jpg',
   },
 ];
