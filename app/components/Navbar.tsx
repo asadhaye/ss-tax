@@ -51,12 +51,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-blue-700 dark:bg-blue-950 shadow-md sticky top-0 z-50">
-      <div
-        className="
-          container mx-auto
-          grid grid-cols-3 items-center
-          px-6 md:px-12 py-2
+    <nav className="bg-white/80 dark:bg-blue-950 shadow-md sticky top-0 z-50 backdrop-blur">
+    <div
+      className="
+        container mx-auto
+        grid grid-cols-3 items-center
+        px-6 md:px-12 py-1
         "
       >
         {/* Left links */}
@@ -65,7 +65,7 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
+              className="text-blue-900 dark:text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
             >
               {item.name}
             </Link>
@@ -75,7 +75,7 @@ export default function Navbar() {
         <div className="flex justify-center">
           <a href="/" className="flex items-center justify-center">
             <Image
-              src="/Sohail-Siraj-Tax.png"
+              src="/sstax.png"
               alt="Sohail Siraj Logo"
               width={100}
               height={100}
@@ -90,7 +90,7 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
+              className="text-blue-900 dark:text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
             >
               {item.name}
             </Link>

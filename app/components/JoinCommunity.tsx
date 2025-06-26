@@ -24,13 +24,16 @@ const JoinCommunity: FC<JoinCommunityProps> = ({ previewOnly, showHeading = true
   return (
     <section id="community" className="py-20 bg-ceo dark:bg-cfo">
       <div className={`container mx-auto text-center px-4 text-primary dark:text-text-light ${styles.fadeIn}`}>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up" style={{ '--delay': '0s' }}>
           Join Pakistan's Premier Taxation Community!
         </h2>
-        <p className="text-lg mb-8">
+        <p className="text-lg mb-8 scroll-fade-up" style={{ '--delay': '0.2s' }}>
           For taxation consultants: Stay updated with daily FBR moves and insights.
         </p>
         <AnimatedCard />
+        <p className="mt-6 text-sm text-text-secondary dark:text-text-light scroll-fade-up" style={{ '--delay': '0.4s' }}>
+          Last updated: June 26, 2025, 10:09 AM PKT
+        </p>
       </div>
     </section>
   );
@@ -39,10 +42,32 @@ const JoinCommunity: FC<JoinCommunityProps> = ({ previewOnly, showHeading = true
 export default JoinCommunity;
 
 function AnimatedCard() {
+  const cardRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
-      className="ss-card scroll-fade-up max-w-md mx-auto text-text-primary dark:text-text-light"
-      style={{ '--index': 0 } as React.CSSProperties}
+      ref={cardRef}
+      className={`ss-card scroll-fade-up max-w-md mx-auto p-6 border-2 border-gray-200 dark:border-gray-700 rounded-2xl text-text-primary dark:text-text-light shadow-md ${isVisible ? 'visible' : ''}`}
+      style={{ '--index': 0, '--delay': '0.3s' } as React.CSSProperties}
     >
       <p className="mb-4 font-semibold">Please provide:</p>
       <ul className="text-left list-disc list-inside mb-6 space-y-2">
@@ -54,7 +79,7 @@ function AnimatedCard() {
       <p className="mb-4">Share details with Sohail Siraj at:</p>
       <a
         href="https://wa.me/923232200100"
-        className="bg-accent text-text-light px-8 py-4 rounded-full font-bold text-lg hover:bg-accent-dark inline-block transition-colors duration-200 shadow-lg hover:shadow-xl"
+        className="bg-green-600 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-green-700 inline-block transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
         aria-label="Contact on WhatsApp: 0323-2200100"
         target="_blank"
         rel="noopener noreferrer"

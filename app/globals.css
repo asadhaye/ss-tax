@@ -73,7 +73,7 @@ body {
 
 /* Light mode background styles */
 .bg-ceo {
-  background: linear-gradient(-45deg, #e0e7ef, #f9fafb, #ffffff, #f3f4f6) !important;
+  background: linear-gradient(-45deg, #e0e7ef, #f0f9ff, #ffffff, #f3f4f6) !important;
   background-size: 400% 400% !important;
   animation: gradient 15s ease infinite !important;
 }
@@ -90,6 +90,10 @@ body {
   background: linear-gradient(-45deg, #1e293b, #2563eb, #1e40af, #0f172a) !important;
   background-size: 400% 400% !important;
   animation: gradient 15s ease infinite !important;
+}
+
+.ss-card {
+  @apply bg-white/70 dark:bg-blue-900/70 rounded-xl shadow-lg p-6 md:p-8 mx-auto transition-all duration-700 ease-in-out;
 }
 
 @keyframes gradient {
