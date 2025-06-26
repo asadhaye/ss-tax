@@ -12,7 +12,7 @@ const JoinCommunity: FC<JoinCommunityProps> = ({ previewOnly, showHeading = true
   if (previewOnly) {
     return (
       <section id="community" className="py-12 bg-ceo dark:bg-cfo">
-        <div className={`container mx-auto text-center px-4 text-primary dark:text-text-light`}>
+        <div className="container mx-auto text-center px-4 text-primary dark:text-text-light">
           {showHeading && (
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Pakistan's Premier Taxation Community!</h2>
           )}
@@ -21,17 +21,18 @@ const JoinCommunity: FC<JoinCommunityProps> = ({ previewOnly, showHeading = true
       </section>
     );
   }
+
   return (
     <section id="community" className="py-20 bg-ceo dark:bg-cfo">
       <div className={`container mx-auto text-center px-4 text-primary dark:text-text-light ${styles.fadeIn}`}>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up" style={{ '--delay': '0s' }}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-fade-up" style={{ '--delay': '0s' } as React.CSSProperties}>
           Join Pakistan's Premier Taxation Community!
         </h2>
-        <p className="text-lg mb-8 scroll-fade-up" style={{ '--delay': '0.2s' }}>
+        <p className="text-lg mb-8 scroll-fade-up" style={{ '--delay': '0.2s' } as React.CSSProperties}>
           For taxation consultants: Stay updated with daily FBR moves and insights.
         </p>
         <AnimatedCard />
-        <p className="mt-6 text-sm text-text-secondary dark:text-text-light scroll-fade-up" style={{ '--delay': '0.4s' }}>
+        <p className="mt-6 text-sm text-text-secondary dark:text-text-light scroll-fade-up" style={{ '--delay': '0.4s' } as React.CSSProperties}>
           Last updated: June 26, 2025, 10:09 AM PKT
         </p>
       </div>

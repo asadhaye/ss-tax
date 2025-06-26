@@ -21,8 +21,8 @@ const iconMap = {
   'default': BriefcaseIcon,
 };
 
-function getServiceIcon(service) {
-  return iconMap[service.category] ?? iconMap['default'];
+function getServiceIcon(service: Service) {
+  return iconMap[service.category as keyof typeof iconMap] ?? iconMap['default'];
 }
 
 const categories = [
@@ -33,10 +33,15 @@ const categories = [
   { id: 'international', label: 'International Tax' },
 ];
 
-const Services = ({ previewCount, showHeading = true }) => {
-  const [services, setServices] = useState([]);
+interface ServicesProps {
+  previewCount?: number;
+  showHeading?: boolean;
+}
+
+const Services = ({ previewCount, showHeading = true }: ServicesProps) => {
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const fetchServices = async () => {
@@ -57,7 +62,7 @@ const Services = ({ previewCount, showHeading = true }) => {
     fetchServices();
   }, []);
 
-  const filteredServices = services.filter((service) =>
+  const filteredServices = services.filter((service: Service) =>
     selectedCategory === 'all' || service.category === selectedCategory
   );
 
@@ -136,7 +141,7 @@ const Services = ({ previewCount, showHeading = true }) => {
   );
 };
 
-function ServiceCard({ service, Icon, index }) {
+function ServiceCard({ service, Icon, index }: Readonly<{ service: Service; Icon: any; index: number }>) {
   const cardRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -162,7 +167,7 @@ function ServiceCard({ service, Icon, index }) {
     <article
       ref={cardRef}
       className={`ss-card scroll-fade-up relative overflow-hidden text-center group ${isVisible ? 'visible' : ''}`}
-      style={{ '--index': index }}
+      style={{ '--index': String(index) } as React.CSSProperties}
       aria-labelledby={`service-${service.id}`}
     >
       {service.image && (

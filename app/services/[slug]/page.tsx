@@ -62,10 +62,10 @@ export default async function ServiceDetail({ params }: ServiceDetailProps) {
         </nav>
 
         <div className="bg-background p-8 rounded-lg shadow-xl flex flex-col md:flex-row gap-8">
-          {service.img && (
+          {service.image && (
             <div className="relative h-64 md:h-auto md:w-1/3 rounded-md overflow-hidden flex-shrink-0">
               <Image
-                src={service.img || "/placeholder.svg"}
+                src={service.image || "/placeholder.svg"}
                 alt={service.name}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

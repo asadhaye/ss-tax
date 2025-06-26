@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useRef, useEffect, FC } from 'react';
+import { useState, useMemo, FC } from 'react';
 import Image from 'next/image';
 import { Article } from '../lib/types';
 
@@ -55,7 +55,7 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
       } else if (sortBy === 'titleAsc') {
         return a.title.localeCompare(b.title);
       }
-      return 0; // Default no sorting
+      return 0;
     });
 
     return filtered;
@@ -81,8 +81,11 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
             <div className="bg-background p-6 rounded-lg shadow-xl max-w-3xl mx-auto mb-12 border border-background-light text-text-secondary">
               {/* Category Filter */}
               <div className="mb-6">
-                <label className="block text-left text-text-primary text-sm font-medium mb-2">Filter by Category:</label>
-                <div className="flex flex-wrap gap-2">
+                <label htmlFor="category-filter" className="block text-left text-text-primary text-sm font-medium mb-2">
+                  Filter by Category:
+                </label>
+                <input id="category-filter" type="text" className="hidden" tabIndex={-1} aria-hidden="true" />
+                <div className="flex flex-wrap gap-2" role="group" aria-labelledby="category-filter">
                   {categories.map((category) => (
                     <button
                       key={category}
@@ -96,6 +99,7 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
                         focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
                       `}
                       aria-pressed={selectedCategory === category}
+                      type="button"
                     >
                       {category === 'all' ? 'All Categories' : category}
                     </button>
@@ -105,8 +109,11 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
               
               {/* Sort By */}
               <div>
-                <label className="block text-left text-text-primary text-sm font-medium mb-2">Sort By:</label>
-                <div className="flex flex-wrap gap-2">
+                <label htmlFor="sort-by" className="block text-left text-text-primary text-sm font-medium mb-2">
+                  Sort By:
+                </label>
+                <input id="sort-by" type="text" className="hidden" tabIndex={-1} aria-hidden="true" />
+                <div className="flex flex-wrap gap-2" role="group" aria-labelledby="sort-by">
                   <button
                     onClick={() => setSortBy('dateDesc')}
                     className={`
@@ -187,18 +194,39 @@ const Articles: FC<ArticlesProps> = ({ previewCount, showHeading = true }) => {
 
 export default Articles;
 
-function ArticleCard({ article, index }: { article: Article, index: number }) {
+function ArticleCard({ article, index }: Readonly<{ article: Article; index: number }>) {
   return (
     <article
-      className={`ss-card scroll-fade-up`}
+      className="ss-card scroll-fade-up flex flex-col h-full"
       style={{ '--index': index } as React.CSSProperties}
     >
+      <div className="mb-4">
+        {article.image && (
+          <Image
+            src={article.image}
+            alt={article.title}
+            width={400}
+            height={220}
+            className="rounded-lg w-full h-44 object-cover mb-3"
+          />
+        )}
+        <div className="flex items-center justify-between text-xs text-text-secondary mb-2">
+          <span>{article.category}</span>
+          <span>{article.date}</span>
+        </div>
+      </div>
       <div className="flex-1 flex flex-col justify-between">
         <h3 className="text-lg font-semibold mb-2 text-primary dark:text-text-light drop-shadow-sm">{article.title}</h3>
         <p className="text-text-secondary dark:text-text-light text-base mb-4 opacity-80">{article.content}</p>
       </div>
-      <div className="mt-auto">
-        <a href="#" className="inline-block bg-accent text-text-light font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200">Read More</a>
+      <div className="mt-auto flex items-center justify-between">
+        <span className="text-xs text-gray-500">{article.readTime}</span>
+        <a
+          href={`/articles/${article.id}`}
+          className="inline-block bg-accent text-text-light font-semibold px-5 py-2 rounded-lg shadow hover:bg-accent-dark transition-colors duration-200"
+        >
+          Read More
+        </a>
       </div>
     </article>
   );

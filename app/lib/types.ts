@@ -7,7 +7,7 @@ export interface User {
   export interface Service {
     id: string;
     name: string;
-    img: string;
+    image: string;
     link: string;
   }
   

@@ -2,7 +2,7 @@
 
 import { Calculator } from '../lib/interfaces';
 import styles from '../styles/animations.module.css';
-import { useRef, useEffect, useState, FC } from 'react';
+import { FC } from 'react';
 
 interface TaxCalculatorsProps {
   previewCount?: number;
@@ -48,7 +48,7 @@ const TaxCalculators: FC<TaxCalculatorsProps> = ({ previewCount, showHeading = t
 
 export default TaxCalculators;
 
-function CalculatorCard({ calc, index }: { calc: Calculator, index: number }) {
+function CalculatorCard({ calc, index }: Readonly<{ calc: Calculator; index: number }>) {
   return (
     <div
       className="ss-card scroll-fade-up"

@@ -34,7 +34,7 @@ export default function Hero() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const slideCount = slides.length;
-  const intervalRef = useRef();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -53,7 +53,7 @@ export default function Hero() {
     return () => stopAutoPlay();
   }, [isPaused, startAutoPlay, stopAutoPlay]);
 
-  const goTo = (idx) => {
+  const goTo = (idx: number) => {
     setCurrent(idx);
     stopAutoPlay();
     if (!isPaused) startAutoPlay();
@@ -62,11 +62,11 @@ export default function Hero() {
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: React.TouchEvent) => {
     touchEndX.current = e.touches[0].clientX;
   };
 
