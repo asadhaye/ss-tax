@@ -12,13 +12,13 @@ const config: Config = {
       colors: {
         primary: {
           light: '#3B82F6', // blue-500
-          DEFAULT: '#1D4ED8', // blue-700
-          dark: '#1E40AF', // blue-800
+          DEFAULT: '#2563EB', // blue-600
+          dark: '#1D4ED8', // blue-700
         },
         accent: {
           light: '#34D399', // emerald-400
-          DEFAULT: '#059669', // emerald-600
-          dark: '#047857', // emerald-700
+          DEFAULT: '#10B981', // emerald-500
+          dark: '#059669', // emerald-600
         },
         background: {
           light: '#FFFFFF',

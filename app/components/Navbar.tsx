@@ -3,17 +3,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { AuthContext, signOut } from '../lib/AuthProvider'
+import { AuthContext, signOut } from '../lib/AuthProvider';
 import Image from 'next/image';
 
-const navigation = [
+const leftLinks = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
   { name: 'Articles', href: '/articles' },
   { name: 'Calculators', href: '/calculators' },
+];
+
+const rightLinks = [
   { name: 'Community', href: '/community' },
   { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' }
+  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
@@ -23,7 +26,8 @@ export default function Navbar() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setIsDark(document.documentElement.classList.contains('dark'));
+      document.documentElement.classList.remove('dark');
+      setIsDark(false);
     }
   }, []);
 
@@ -47,41 +51,69 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-background-light dark:bg-background-dark shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between px-4 py-2">
-        <a href="/" className="flex items-center gap-2">
-          <Image src="/Sohail-Siraj-logo.svg" alt="Sohail Siraj Logo" width={40} height={40} className="h-10 w-10 object-contain" priority />
-          <span className="font-bold text-xl text-primary dark:text-white">Sohail Siraj</span>
-        </a>
-        <div className="space-x-6 flex items-center">
-          {navigation.map((item) => (
+    <nav className="bg-blue-700 dark:bg-blue-950 shadow-md sticky top-0 z-50">
+      <div
+        className="
+          container mx-auto
+          grid grid-cols-3 items-center
+          px-6 md:px-12 py-2
+        "
+      >
+        {/* Left links */}
+        <div className="flex items-center gap-3 md:gap-8 justify-start">
+          {leftLinks.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-primary dark:text-white hover:text-accent dark:hover:text-accent transition-colors duration-200"
+              className="text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
             >
               {item.name}
             </Link>
           ))}
-          {user ? (
+        </div>
+        {/* Centered logo */}
+        <div className="flex justify-center">
+          <a href="/" className="flex items-center justify-center">
+            <Image
+              src="/Sohail-Siraj-Tax.png"
+              alt="Sohail Siraj Logo"
+              width={100}
+              height={100}
+              className="h-25 w-25 object-contain"
+              priority
+            />
+          </a>
+        </div>
+        {/* Right links and dark mode toggle */}
+        <div className="flex items-center gap-3 md:gap-8 justify-end">
+          {rightLinks.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="text-white hover:text-accent transition-colors duration-200 px-1 md:px-2"
+            >
+              {item.name}
+            </Link>
+          ))}
+          {user && (
             <>
               <Link
                 href="/admin"
-                className="text-primary dark:text-white hover:text-accent dark:hover:text-accent transition-colors duration-200"
+                className="text-white hover:text-accent transition-colors duration-200"
               >
                 Admin
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-primary dark:text-white hover:text-accent dark:hover:text-accent transition-colors duration-200"
+                className="text-white hover:text-accent transition-colors duration-200"
               >
                 Logout
               </button>
             </>
-          ) : null}
+          )}
           <button
             onClick={toggleDarkMode}
-            className="ml-2 p-2 rounded-full bg-background-light dark:bg-background-dark text-primary dark:text-accent hover:bg-primary/10 dark:hover:bg-accent/10 transition-colors"
+            className="ml-2 p-2 rounded-full bg-blue-700 dark:bg-blue-900 text-white hover:bg-blue-800 dark:hover:bg-blue-800 transition-colors"
             aria-label="Toggle dark mode"
           >
             {isDark ? (
