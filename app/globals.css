@@ -5,23 +5,21 @@
 :root {
   color-scheme: light dark;
   --color-adjust: exact;
-  
-  /* Custom properties for color adjustment */
+
+  /* Theme colors */
   --color-primary: #2563EB;
   --color-primary-light: #3B82F6;
   --color-primary-dark: #1D4ED8;
-  
+
   --color-text-primary: #111827;
   --color-text-secondary: #374151;
   --color-text-muted: #6B7280;
 
-  /* Main background and foreground for light mode */
   --background: #FFFFFF;
   --foreground: #111827;
 }
-  
-  /* Ensure proper contrast in dark mode */
-  @media (prefers-color-scheme: dark) {
+
+@media (prefers-color-scheme: dark) {
   :root {
     --color-text-primary: #F9FAFB;
     --color-text-secondary: #E5E7EB;
@@ -31,30 +29,35 @@
   }
 }
 
-/* Define hero gradient and a utility class */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Hero background */
 .hero-gradient-bg {
   background: linear-gradient(135deg, #67e8f9, #6366f1 80%);
 }
 
-/* Print optimization */
+/* Print mode */
 @media print {
   :root {
     --color-adjust: exact;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  
+
   * {
     print-color-adjust: exact;
   }
 
-  /* Ensure text is readable on white background in print */
   .print\:bg-background * {
     color: var(--color-text-primary) !important;
   }
 }
 
-/* High contrast mode support */
+/* Forced colors support */
 @media (forced-colors: active) {
   :root {
     --color-primary: CanvasText;
@@ -65,35 +68,25 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Light mode background styles */
+/* Backgrounds */
 .bg-ceo {
   background: linear-gradient(-45deg, #e0e7ef, #f0f9ff, #ffffff, #f3f4f6) !important;
   background-size: 400% 400% !important;
   animation: gradient 15s ease infinite !important;
 }
 
-.bg-cfo {
-  background-image: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
-}
 .dark .bg-ceo {
   background: none !important;
 }
 
-/* Dark mode animated gradient background */
+.bg-cfo {
+  background-image: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
+}
+
 .dark .bg-cfo {
   background: linear-gradient(-45deg, #1e293b, #2563eb, #1e40af, #0f172a) !important;
   background-size: 400% 400% !important;
   animation: gradient 15s ease infinite !important;
-}
-
-.ss-card {
-  @apply bg-white/70 dark:bg-blue-900/70 rounded-xl shadow-lg p-6 md:p-8 mx-auto transition-all duration-700 ease-in-out;
 }
 
 @keyframes gradient {
@@ -105,5 +98,131 @@ body {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Card (still used?) */
+.ss-card {
+  @apply bg-white/70 dark:bg-blue-900/70 rounded-xl shadow-lg p-6 md:p-8 mx-auto transition-all duration-700 ease-in-out;
+}
+
+/* ================================
+   PillCard Layout (AEM-style mimic)
+=================================== */
+
+.teaser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Base pill layout */
+.sstax-teaser {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px 80px;
+  overflow: hidden;
+  border-radius: 999px;
+  width: 100%;
+  max-width: 960px;
+  margin-top: 80px;
+  background-color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition:
+    width 1.5s ease,
+    padding 1.5s ease,
+    border-radius 1.5s ease;
+}
+
+/* Image block */
+.sstax-teaser__image {
+  width: 414px;
+  height: 414px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  overflow: hidden;
+  transition: width 1.5s ease, height 1.5s ease;
+}
+
+/* Text block */
+.sstax-teaser__content {
+  width: 359px;
+  flex: 0 0 auto;
+  margin: 0 3vw;
+  opacity: 0;
+  transform: translateX(40px);
+  transition:
+    opacity 0.8s ease 0.2s,
+    transform 1s ease;
+  display: none;
+}
+
+/* Animate in when visible */
+.teaser.in-viewport .sstax-teaser {
+  width: 720px;
+  padding: 48px 56px;
+  border-radius: 999px;
+  gap: 2.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.teaser.in-viewport .sstax-teaser__content {
+  opacity: 1;
+  transform: translateX(0);
+  display: block;
+}
+
+.teaser.in-viewport .sstax-teaser__image {
+  width: 160px;
+  height: 160px;
+}
+
+/* Left / right flip layout */
+.sstax-horizontal-pill-left .sstax-teaser {
+  flex-direction: row-reverse;
+}
+
+.sstax-horizontal-pill-right .sstax-teaser {
+  flex-direction: row;
+}
+
+/* Scroll-trigger animation */
+.sstax-scroll-trigger {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s, transform 1s;
+}
+
+.sstax-scroll-trigger.in-viewport {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .sstax-teaser,
+  .teaser.in-viewport .sstax-teaser {
+    width: 98vw;
+    max-width: 100vw;
+    height: auto;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+    border-radius: 2rem;
+  }
+
+  .sstax-teaser__image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .sstax-teaser__content {
+    transform: none;
+    opacity: 1;
+    display: block;
+    text-align: center;
   }
 }
