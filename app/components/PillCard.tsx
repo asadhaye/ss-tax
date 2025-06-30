@@ -39,10 +39,12 @@ export default function PillCard({ service, index }: PillCardProps) {
     return src;
   };
 
+  const pillDirection = index % 2 === 0 ? 'left' : 'right';
+
   return (
     <div
       ref={cardRef}
-      className={`teaser sstax-horizontal-pill-${index % 2 === 0 ? 'left' : 'right'} sstax-scroll-trigger${inViewport ? ' in-viewport' : ''}`}
+      className={`teaser sstax-horizontal-pill-${pillDirection} ${inViewport ? 'in-viewport' : ''}`}
       aria-labelledby={`service-${service.id}`}
       data-cmp-data-layer={JSON.stringify({
         [`teaser-${service.id}`]: {
@@ -51,9 +53,24 @@ export default function PillCard({ service, index }: PillCardProps) {
           'dc:description': service.description,
         },
       })}
-      style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div id={`teaser-${service.id}`} className="sstax-teaser">
+      <div id={`teaser-${service.id}`} className={`sstax-teaser`}>
+        <div className="sstax-teaser__image">
+          {service.image ? (
+            <Image
+              src={getImageSrc(service.image)}
+              alt={service.name}
+              width={240}
+              height={240}
+              className="object-cover rounded-full w-full h-full"
+            />
+          ) : (
+            <div className="w-[120px] h-[120px] rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm">
+              No Image
+            </div>
+          )}
+        </div>
+
         <div className="sstax-teaser__content">
           <h3
             className="sstax-teaser__title text-3xl font-bold text-text-primary dark:text-text-light mb-4"
@@ -75,16 +92,6 @@ export default function PillCard({ service, index }: PillCardProps) {
               Learn more
             </a>
           </div>
-        </div>
-
-        <div className="sstax-teaser__image">
-          <Image
-            src={getImageSrc(service.image || '/fallback.jpg')}
-            alt={service.name}
-            width={240}
-            height={240}
-            className="object-cover rounded-full"
-          />
         </div>
       </div>
     </div>

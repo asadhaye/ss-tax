@@ -109,7 +109,6 @@ body {
 /* ================================
    PillCard Layout (AEM-style mimic)
 =================================== */
-
 .teaser {
   display: flex;
   justify-content: center;
@@ -118,105 +117,102 @@ body {
   transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Base pill layout */
+/* INITIAL STATE - collapsed small pill */
 .sstax-teaser {
   display: inline-flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 40px 80px;
+  justify-content: center;
+  width: 220px;
+  height: 220px;
+  padding: 0;
   overflow: hidden;
-  border-radius: 999px;
-  width: 100%;
-  max-width: 960px;
-  margin-top: 80px;
-  background-color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   transition:
-    width 1.5s ease,
-    padding 1.5s ease,
-    border-radius 1.5s ease;
+    width 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+    height 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+    padding 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+    border-radius 1.2s cubic-bezier(0.77, 0, 0.175, 1),
+    box-shadow 0.5s;
+  position: relative;
 }
 
-/* Image block */
-.sstax-teaser__image {
-  width: 414px;
-  height: 414px;
-  flex: 0 0 auto;
-  border-radius: 999px;
-  overflow: hidden;
-  transition: width 1.5s ease, height 1.5s ease;
-}
-
-/* Text block */
+/* CONTENT (hidden initially) */
 .sstax-teaser__content {
-  width: 359px;
-  flex: 0 0 auto;
-  margin: 0 3vw;
   opacity: 0;
   transform: translateX(40px);
   transition:
     opacity 0.8s ease 0.2s,
-    transform 1s ease;
+    transform 1s cubic-bezier(0.77, 0, 0.175, 1);
   display: none;
+  flex: 1;
+  min-width: 0;
 }
 
-/* Animate in when visible */
+/* IMAGE */
+.sstax-teaser__image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IN-VIEWPORT STATE - full pill */
 .teaser.in-viewport .sstax-teaser {
   width: 720px;
-  padding: 48px 56px;
-  border-radius: 999px;
-  gap: 2.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  height: auto;
+  padding: 40px 56px;
+  border-radius: 60px;
+  justify-content: space-between;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
+/* IN-VIEWPORT image shrink */
+.teaser.in-viewport .sstax-teaser__image {
+  width: 120px;
+  height: 120px;
+  margin-right: 24px;
+  margin-left: 32px;
+}
+
+/* IN-VIEWPORT content show */
 .teaser.in-viewport .sstax-teaser__content {
   opacity: 1;
   transform: translateX(0);
   display: block;
 }
 
-.teaser.in-viewport .sstax-teaser__image {
-  width: 160px;
-  height: 160px;
-}
-
-/* Left / right flip layout */
+/* DIRECTION MODIFIERS */
 .sstax-horizontal-pill-left .sstax-teaser {
   flex-direction: row-reverse;
 }
-
 .sstax-horizontal-pill-right .sstax-teaser {
   flex-direction: row;
 }
 
-/* Scroll-trigger animation */
-.sstax-scroll-trigger {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s, transform 1s;
-}
-
-.sstax-scroll-trigger.in-viewport {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive adjustments */
+/* RESPONSIVE */
 @media (max-width: 640px) {
   .sstax-teaser,
   .teaser.in-viewport .sstax-teaser {
     width: 98vw;
     max-width: 100vw;
-    height: auto;
     flex-direction: column;
     padding: 2rem;
     gap: 1.5rem;
     border-radius: 2rem;
+    height: auto;
   }
 
   .sstax-teaser__image {
     width: 100px;
     height: 100px;
+    margin: 0 auto;
   }
 
   .sstax-teaser__content {
